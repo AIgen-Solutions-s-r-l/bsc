@@ -13,13 +13,32 @@ from web3 import Web3
 EXTERNAL_RPC = "https://bsc-dataseed.bnbchain.org"
 LOCAL_RPC = "http://localhost:8545"
 
-# Known PancakeSwap V2 pools (WBNB pairs)
+# Known PancakeSwap V2 pools (CORRECTED addresses)
 POOLS = {
     "WBNB-BUSD": "0x58F876857a02D6762E0101bb5C46A8c1ED44Dc16",
-    "WBNB-USDT": "0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE",
-    "WBNB-USDC": "0x7EFaEf62fDdCCa950418312c6C91Aef321375A00",
-    "WBNB-CAKE": "0x0eD7e52944161450477ee417DE9Cd3a859b14fD0",
-    "WBNB-ETH": "0x1B96B92314C44b159149f7E0303511fB2Fc4774f",
+    "USDT-WBNB": "0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE",
+    "CAKE-WBNB": "0x0eD7e52944161450477ee417DE9Cd3a859b14fD0",
+    # Note: Removed incorrect pool addresses
+}
+
+# Token addresses on BSC
+TOKEN_ADDRESSES = {
+    "WBNB": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+    "BUSD": "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56",
+    "USDT": "0x55d398326f99059fF775485246999027B3197955",
+    "USDC": "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d",
+    "CAKE": "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82",
+    "ETH": "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
+}
+
+# Token prices in USD (updated periodically or from oracle)
+TOKEN_PRICES_USD = {
+    "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c".lower(): 943.0,  # WBNB
+    "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56".lower(): 1.0,    # BUSD
+    "0x55d398326f99059fF775485246999027B3197955".lower(): 1.0,    # USDT
+    "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d".lower(): 1.0,    # USDC
+    "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82".lower(): 2.45,   # CAKE
+    "0x2170Ed0880ac9A755fd29B2688956BD959F933F8".lower(): 3500.0,  # ETH
 }
 
 # DEX Routers to monitor
@@ -36,9 +55,6 @@ SWAP_METHODS = {
     "0x7ff36ab5": "swapExactETHForTokens",
     "0x18cbafe5": "swapExactTokensForETH",
 }
-
-# BNB price (approximate)
-BNB_USD = 620.0
 
 # Swap event signature for proper detection
 web3 = Web3()
@@ -75,6 +91,27 @@ class EnhancedArbitrageTracker:
         result = self.rpc_call("eth_blockNumber", [])
         return int(result, 16) if result else 0
 
+    def get_pool_token_addresses(self, pool_address: str) -> Tuple[str, str]:
+        """Get token0 and token1 addresses from pool"""
+        token0_result = self.rpc_call("eth_call", [
+            {"to": pool_address, "data": "0x0dfe1681"},  # token0()
+            "latest"
+        ])
+        token1_result = self.rpc_call("eth_call", [
+            {"to": pool_address, "data": "0xd21220a7"},  # token1()
+            "latest"
+        ])
+
+        if token0_result and token1_result:
+            token0 = "0x" + token0_result[-40:].lower()
+            token1 = "0x" + token1_result[-40:].lower()
+            return token0, token1
+        return "", ""
+
+    def get_token_price_usd(self, token_address: str) -> float:
+        """Get token price in USD"""
+        return TOKEN_PRICES_USD.get(token_address.lower(), 0.0)
+
     def get_pool_reserves(self, pool_address: str) -> Tuple[int, int]:
         """Get pool reserves via getReserves()"""
         result = self.rpc_call("eth_call", [
@@ -88,69 +125,102 @@ class EnhancedArbitrageTracker:
             return reserve0, reserve1
         return 0, 0
 
-    def calculate_imbalance(self, reserve0: int, reserve1: int) -> Tuple[float, float]:
-        """Calculate pool imbalance and profit potential"""
+    def calculate_imbalance(self, reserve0: int, reserve1: int,
+                           token0_address: str, token1_address: str) -> Tuple[float, float]:
+        """
+        Calculate CORRECT pool imbalance using USD values
+
+        A Uniswap V2 pool is balanced when both tokens have equal USD value,
+        NOT when reserve quantities are equal (that assumption was the bug!)
+        """
         if reserve0 == 0 or reserve1 == 0:
             return 0.0, 0.0
 
-        # CPMM: k = x * y
-        k = reserve0 * reserve1
-        optimal_x = (k ** 0.5)
-        optimal_y = (k ** 0.5)
+        # Get token prices in USD
+        price0_usd = self.get_token_price_usd(token0_address)
+        price1_usd = self.get_token_price_usd(token1_address)
 
-        # Imbalance percentage
-        imbalance_x = abs(reserve0 - optimal_x) / optimal_x * 100
-        imbalance_y = abs(reserve1 - optimal_y) / optimal_y * 100
-        imbalance = max(imbalance_x, imbalance_y)
+        if price0_usd == 0 or price1_usd == 0:
+            # Can't calculate without prices
+            return 0.0, 0.0
 
-        # Profit estimation (simplified)
-        if reserve0 > optimal_x:
-            # Too much token0, arbitrage by selling token0
-            excess = reserve0 - optimal_x
-            profit = (excess * reserve1) / (reserve0 + excess) / 1e18
+        # Normalize reserves (convert from wei to tokens)
+        reserve0_normalized = reserve0 / 1e18
+        reserve1_normalized = reserve1 / 1e18
+
+        # Calculate USD values of each side
+        value0_usd = reserve0_normalized * price0_usd
+        value1_usd = reserve1_normalized * price1_usd
+
+        # Total pool value and optimal 50/50 split
+        total_value_usd = value0_usd + value1_usd
+        optimal_value_each = total_value_usd / 2
+
+        # Imbalance is deviation from 50/50 USD split
+        imbalance_pct = abs(value0_usd - optimal_value_each) / optimal_value_each * 100
+
+        # Profit potential (accounting for 0.3% swap fees)
+        if value0_usd > optimal_value_each:
+            # Too much token0, profit by selling token0 for token1
+            excess_value_usd = value0_usd - optimal_value_each
+            # After 0.3% fee
+            profit_usd = excess_value_usd * 0.997
         else:
-            # Too much token1, arbitrage by selling token1
-            excess = reserve1 - optimal_y
-            profit = (excess * reserve0) / (reserve1 + excess) / 1e18
+            # Too much token1, profit by selling token1 for token0
+            excess_value_usd = value1_usd - optimal_value_each
+            # After 0.3% fee
+            profit_usd = excess_value_usd * 0.997
 
-        return imbalance, profit * BNB_USD
+        return imbalance_pct, profit_usd
 
     def scan_pools(self):
         """Scan all pools for imbalances"""
         opportunities = []
 
         for pool_name, pool_address in POOLS.items():
+            # Get pool reserves
             reserve0, reserve1 = self.get_pool_reserves(pool_address)
 
             if reserve0 > 0 and reserve1 > 0:
-                imbalance, profit_usd = self.calculate_imbalance(reserve0, reserve1)
+                # Get token addresses for price lookup
+                token0, token1 = self.get_pool_token_addresses(pool_address)
 
-                if imbalance > 5.0:  # Only log significant imbalances
-                    # Log to database
-                    opp_id = self.db.log_opportunity(
-                        pool_name=pool_name,
-                        pool_address=pool_address,
-                        imbalance_pct=imbalance,
-                        profit_usd=profit_usd,
-                        profit_bnb=profit_usd / BNB_USD,
-                        reserve0=reserve0 / 1e18,
-                        reserve1=reserve1 / 1e18,
-                        block_number=self.last_block
+                if token0 and token1:
+                    # Calculate imbalance with correct USD-based formula
+                    imbalance, profit_usd = self.calculate_imbalance(
+                        reserve0, reserve1, token0, token1
                     )
 
-                    # Cache for matching with transactions
-                    cache_key = f"{pool_address}_{self.last_block}"
-                    self.opportunity_cache[cache_key] = {
-                        'id': opp_id,
-                        'timestamp': datetime.now(),
-                        'profit_usd': profit_usd
-                    }
+                    # Lower threshold to 0.3% (meaningful arbitrage opportunity)
+                    if imbalance > 0.3 and profit_usd > 100:  # >0.3% imbalance, >$100 profit
+                        # Get current BNB price for profit_bnb
+                        bnb_price = self.get_token_price_usd(TOKEN_ADDRESSES["WBNB"].lower())
 
-                    opportunities.append({
-                        'pool': pool_name,
-                        'imbalance': imbalance,
-                        'profit': profit_usd
-                    })
+                        # Log to database
+                        opp_id = self.db.log_opportunity(
+                            pool_name=pool_name,
+                            pool_address=pool_address,
+                            imbalance_pct=imbalance,
+                            profit_usd=profit_usd,
+                            profit_bnb=profit_usd / bnb_price if bnb_price > 0 else 0,
+                            reserve0=reserve0 / 1e18,
+                            reserve1=reserve1 / 1e18,
+                            block_number=self.last_block
+                        )
+
+                        # Cache for matching with transactions
+                        cache_key = f"{pool_address}_{self.last_block}"
+                        self.opportunity_cache[cache_key] = {
+                            'id': opp_id,
+                            'timestamp': datetime.now(),
+                            'profit_usd': profit_usd
+                        }
+
+                        opportunities.append({
+                            'pool': pool_name,
+                            'imbalance': imbalance,
+                            'profit': profit_usd
+                        })
 
         return opportunities
 
