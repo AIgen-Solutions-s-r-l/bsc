@@ -56,9 +56,19 @@ SWAP_METHODS = {
     "0x18cbafe5": "swapExactTokensForETH",
 }
 
-# Swap event signature for proper detection
+# Event signatures for detection
 web3 = Web3()
 SWAP_EVENT_SIGNATURE = web3.keccak(text="Swap(address,uint256,uint256,uint256,uint256,address)").hex()
+
+# Flash loan event signatures
+# PancakeSwap FlashLoan event: FlashLoan(address indexed receiver, address indexed token, uint256 amount, uint256 fee, bytes params)
+PANCAKE_FLASHLOAN_SIG = web3.keccak(text="FlashLoan(address,address,uint256,uint256,bytes)").hex()
+
+# Known flash loan providers on BSC
+FLASH_LOAN_PROVIDERS = {
+    "PancakeSwap": "0x1097053Fd2ea711dad45caCcc45EfF7548fCB362",  # PancakeSwap Pool Deployer
+    # Add more as needed
+}
 
 class EnhancedArbitrageTracker:
     def __init__(self):
@@ -286,6 +296,97 @@ class EnhancedArbitrageTracker:
 
         return None
 
+    def detect_flash_loan_arbitrage(self, tx: Dict, receipt: Dict) -> Optional[Dict]:
+        """Detect flash loan based arbitrage"""
+        if not receipt:
+            return None
+
+        has_flash_loan = False
+        flash_loan_amount = 0
+        swap_count = 0
+
+        for log in receipt.get('logs', []):
+            if len(log.get('topics', [])) == 0:
+                continue
+
+            event_sig = log['topics'][0]
+
+            # Check for flash loan event
+            if event_sig == PANCAKE_FLASHLOAN_SIG:
+                has_flash_loan = True
+                # Parse flash loan amount from data
+                try:
+                    data = log.get('data', '0x')[2:]
+                    if len(data) >= 128:
+                        flash_loan_amount = int(data[0:64], 16) / 1e18
+                except:
+                    pass
+
+            # Count swaps
+            if event_sig == SWAP_EVENT_SIGNATURE:
+                swap_count += 1
+
+        # Flash loan arbitrage: has flash loan + multiple swaps
+        if has_flash_loan and swap_count >= 1:
+            gas_price = int(tx.get('gasPrice', '0'), 16) / 1e9
+            gas_used = int(receipt.get('gasUsed', '0'), 16)
+            gas_cost_bnb = (gas_price * gas_used) / 1e9
+
+            return {
+                'tx_hash': tx['hash'],
+                'from': tx['from'],
+                'block': int(tx['blockNumber'], 16),
+                'gas_price_gwei': gas_price,
+                'gas_used': gas_used,
+                'gas_cost_bnb': gas_cost_bnb,
+                'swap_count': swap_count,
+                'flash_loan_amount': flash_loan_amount,
+                'method': 'flash_loan_arbitrage'
+            }
+
+        return None
+
+    def detect_direct_pool_arbitrage(self, tx: Dict, receipt: Dict) -> Optional[Dict]:
+        """Detect arbitrage via direct pool interactions (not router)"""
+        if not receipt:
+            return None
+
+        # Check if transaction interacts with our monitored pools
+        to_address = tx.get('to', '').lower()
+
+        # Check if it's one of our pools
+        is_pool = any(pool.lower() == to_address for pool in POOLS.values())
+
+        if not is_pool:
+            return None
+
+        # Count swap events
+        swap_count = 0
+        for log in receipt.get('logs', []):
+            if len(log.get('topics', [])) > 0:
+                if log['topics'][0] == SWAP_EVENT_SIGNATURE:
+                    swap_count += 1
+
+        # Direct pool interaction with swap
+        if swap_count >= 1:
+            gas_price = int(tx.get('gasPrice', '0'), 16) / 1e9
+            gas_used = int(receipt.get('gasUsed', '0'), 16)
+            gas_cost_bnb = (gas_price * gas_used) / 1e9
+
+            return {
+                'tx_hash': tx['hash'],
+                'from': tx['from'],
+                'to': to_address,
+                'block': int(tx['blockNumber'], 16),
+                'gas_price_gwei': gas_price,
+                'gas_used': gas_used,
+                'gas_cost_bnb': gas_cost_bnb,
+                'swap_count': swap_count,
+                'method': 'direct_pool_swap'
+            }
+
+        return None
+
     def monitor_blocks(self):
         """Monitor new blocks for arbitrage transactions"""
         current_block = self.get_latest_block()
@@ -305,11 +406,39 @@ class EnhancedArbitrageTracker:
 
             # Analyze each transaction
             for tx in block['transactions']:
+                # Try multiple detection methods
+                arb = None
+                method_type = None
+                receipt = None
+
+                # Method 1: Multi-hop DEX router arbitrage
                 arb = self.analyze_transaction(tx)
+                if arb:
+                    method_type = "multi-hop"
+
+                # Method 2: Flash loan arbitrage (if not already detected)
+                if not arb:
+                    receipt = self.get_transaction_receipt(tx['hash'])
+                    if receipt:
+                        arb = self.detect_flash_loan_arbitrage(tx, receipt)
+                        if arb:
+                            method_type = "flash-loan"
+
+                # Method 3: Direct pool interaction (if not already detected)
+                if not arb:
+                    if not receipt:
+                        receipt = self.get_transaction_receipt(tx['hash'])
+                    if receipt:
+                        arb = self.detect_direct_pool_arbitrage(tx, receipt)
+                        if arb:
+                            method_type = "direct-pool"
 
                 if arb:
                     # Estimate profit (simplified - actual profit would need log parsing)
-                    estimated_profit_usd = arb['swap_count'] * 1000  # Rough estimate
+                    if method_type == "flash-loan":
+                        estimated_profit_usd = arb.get('flash_loan_amount', 0) * 0.01  # Rough 1% profit estimate
+                    else:
+                        estimated_profit_usd = arb['swap_count'] * 1000  # Rough estimate
 
                     # Log transaction
                     self.db.log_transaction(
@@ -320,7 +449,7 @@ class EnhancedArbitrageTracker:
                         gas_used=arb['gas_used'],
                         swap_count=arb['swap_count'],
                         profit_usd=estimated_profit_usd,
-                        strategy=f"{arb['swap_count']}-hop"
+                        strategy=arb.get('method', method_type)
                     )
 
                     # Update arbitrageur stats
@@ -328,15 +457,31 @@ class EnhancedArbitrageTracker:
                         address=arb['from'],
                         profit_usd=estimated_profit_usd,
                         gas_price=arb['gas_price_gwei'],
-                        strategy=f"{arb['swap_count']}-hop",
+                        strategy=arb.get('method', method_type),
                         success=True
                     )
 
-                    print(f"  🎯 REAL ARBITRAGE detected! ({arb['swap_count']} swaps)")
-                    print(f"     TX: {arb['tx_hash'][:20]}...")
-                    print(f"     From: {arb['from'][:10]}...{arb['from'][-8:]}")
-                    print(f"     Gas: {arb['gas_price_gwei']:.2f} Gwei")
-                    print(f"     Est. Profit: ~${estimated_profit_usd:,.0f} (rough)")
+                    # Display based on method
+                    if method_type == "flash-loan":
+                        print(f"  🔥 FLASH LOAN ARBITRAGE detected!")
+                        print(f"     TX: {arb['tx_hash'][:20]}...")
+                        print(f"     From: {arb['from'][:10]}...{arb['from'][-8:]}")
+                        print(f"     Flash Loan: ${arb.get('flash_loan_amount', 0):,.2f}")
+                        print(f"     Swaps: {arb['swap_count']}")
+                        print(f"     Gas: {arb['gas_price_gwei']:.2f} Gwei")
+                    elif method_type == "direct-pool":
+                        print(f"  💎 DIRECT POOL ARBITRAGE detected!")
+                        print(f"     TX: {arb['tx_hash'][:20]}...")
+                        print(f"     From: {arb['from'][:10]}...{arb['from'][-8:]}")
+                        print(f"     Pool: {arb.get('to', '')[:10]}...")
+                        print(f"     Swaps: {arb['swap_count']}")
+                    else:
+                        print(f"  🎯 MULTI-HOP ARBITRAGE detected!")
+                        print(f"     TX: {arb['tx_hash'][:20]}...")
+                        print(f"     From: {arb['from'][:10]}...{arb['from'][-8:]}")
+                        print(f"     Swaps: {arb['swap_count']}")
+                        print(f"     Gas: {arb['gas_price_gwei']:.2f} Gwei")
+                        print(f"     Est. Profit: ~${estimated_profit_usd:,.0f} (rough)")
 
         self.last_block = current_block
 
