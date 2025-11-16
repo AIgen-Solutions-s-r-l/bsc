@@ -97,34 +97,27 @@ gantt
 ### Milestone Timeline
 
 ```mermaid
-timeline
-    title Key Milestones
-    section Nov 15
-        14:00 : Project Start
-              : Compile BSC node
-              : Create hybrid mode
-        20:00 : Bug #1 Discovery
-              : Swap detection wrong
-              : 25K false positives/hour
-        21:00 : Bug #1 Fixed
-              : Proper event signature
-              : 100% accuracy
-    section Nov 16
-        02:00 : Bug #2 Discovery
-              : Imbalance calc wrong
-              : 2,961% fake imbalance
-        03:00 : Bug #2 Fixed
-              : USD-based formula
-              : 0.56% real imbalance
-        12:00 : Verification Complete
-              : Opportunities confirmed
-              : $28K-$96K profit
-        13:00 : Tracker Expanded
-              : Flash loan detection
-              : Direct pool detection
-        14:00 : Full Monitoring Active
-              : 3 detection methods
-              : Real-time analysis
+graph LR
+    subgraph "Nov 15 - Day 1"
+        A[14:00<br/>Project Start] --> B[20:00<br/>Bug 1 Discovery<br/>25K false positives]
+        B --> C[21:00<br/>Bug 1 Fixed<br/>Swap detection]
+    end
+
+    subgraph "Nov 16 - Day 2"
+        C --> D[02:00<br/>Bug 2 Discovery<br/>2,961% error]
+        D --> E[03:00<br/>Bug 2 Fixed<br/>USD formula]
+        E --> F[12:00<br/>Verification<br/>$28K-$96K profit]
+        F --> G[13:00<br/>Tracker Expanded<br/>3 detection methods]
+        G --> H[14:00<br/>Full Monitoring<br/>Active]
+    end
+
+    style B fill:#f99,stroke:#333,stroke-width:2px
+    style D fill:#f99,stroke:#333,stroke-width:2px
+    style C fill:#9f9,stroke:#333,stroke-width:2px
+    style E fill:#9f9,stroke:#333,stroke-width:2px
+    style F fill:#9f9,stroke:#333,stroke-width:2px
+    style G fill:#9f9,stroke:#333,stroke-width:2px
+    style H fill:#0f0,stroke:#333,stroke-width:3px
 ```
 
 ---
