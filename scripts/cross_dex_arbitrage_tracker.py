@@ -17,13 +17,14 @@ import time
 import sqlite3
 from datetime import datetime
 import json
+import random
 from typing import List, Dict, Tuple, Optional
 from itertools import permutations, combinations
 
-# BSC RPC
+# BSC RPC - Using public RPC (local node doesn't have full state history)
 BSC_RPC = "https://bsc-dataseed.bnbchain.org"
 
-# DEX Configurations
+# DEX Configurations (3 working DEXs + Mid-cap tokens for more volatility)
 DEXS = {
     "PancakeSwap_V2": {
         "name": "PancakeSwap V2",
@@ -45,11 +46,13 @@ DEXS = {
         "router": "0xcF0feBd3f17CEf5b47b0cD257aCf6025c5BFf3b7",
         "fee": 0.002,  # 0.2%
         "init_code_hash": "0xf4ccce374816856d11f00e4069e7cada164065686fbef53c6167a63ec2fd8c5b"
-    }
+    },
+    # Note: THENA and BabySwap removed (incompatible factory interface)
 }
 
-# Token addresses
+# Token addresses (Blue chips + Mid-caps for more volatility)
 TOKENS = {
+    # Blue chip / Stablecoins
     "WBNB": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
     "BUSD": "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56",
     "USDT": "0x55d398326f99059fF775485246999027B3197955",
@@ -57,10 +60,21 @@ TOKENS = {
     "ETH": "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
     "BTC": "0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c",
     "CAKE": "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82",
+
+    # Mid-cap tokens (more volatile, less liquid = more arbitrage opportunities)
+    "XVS": "0xcF6BB5389c92Bdda8a3747Ddb454cB7a64626C63",      # Venus
+    "ALPACA": "0x8F0528cE5eF7B51152A59745bEfDD91D97091d2F",  # Alpaca Finance
+    "BSW": "0x965F527D9159dCe6288a2219DB51fc6Eef120dD1",     # Biswap Token
+    "THE": "0xF4C8E32EaDEC4BFe97E0F595AdD0f4450a863a11",     # THENA
+    "GMT": "0x3019BF2a2eF8040C242C9a4c5c4BD4C81678b2A1",     # STEPN
+    "RACA": "0x12BB890508c125661E03b09EC06E404bc9289040",    # Radio Caca
+    "TWT": "0x4B0F1812e5Df2A09796481Ff14017e6005508003",     # Trust Wallet Token
+    "SFP": "0xD41FDb03Ba84762dD66a0af1a6C8540FF1ba5dfb",     # SafePal
 }
 
-# Priority pairs to monitor
+# Priority pairs to monitor (Expanded with mid-cap tokens)
 PRIORITY_PAIRS = [
+    # Blue chip pairs
     ("WBNB", "USDT"),
     ("WBNB", "BUSD"),
     ("WBNB", "USDC"),
@@ -70,16 +84,69 @@ PRIORITY_PAIRS = [
     ("WBNB", "ETH"),
     ("WBNB", "BTC"),
     ("WBNB", "CAKE"),
+
+    # Mid-cap pairs (more volatile = more opportunities)
+    ("WBNB", "XVS"),
+    ("WBNB", "ALPACA"),
+    ("WBNB", "BSW"),
+    ("WBNB", "THE"),
+    ("WBNB", "GMT"),
+    ("WBNB", "RACA"),
+    ("WBNB", "TWT"),
+    ("WBNB", "SFP"),
+
+    # Mid-cap to stablecoin (volatile)
+    ("XVS", "USDT"),
+    ("ALPACA", "USDT"),
+    ("BSW", "USDT"),
+    ("CAKE", "USDT"),
 ]
 
-# Triangular paths (3-way)
+# Triangular paths (3-way) - Expanded with mid-cap tokens
 TRIANGULAR_PATHS = [
+    # Blue chip paths
     ["WBNB", "USDT", "BUSD"],
     ["WBNB", "USDT", "USDC"],
     ["WBNB", "BUSD", "USDC"],
     ["WBNB", "ETH", "USDT"],
     ["WBNB", "BTC", "USDT"],
     ["WBNB", "CAKE", "USDT"],
+
+    # Mid-cap paths (more volatile)
+    ["WBNB", "XVS", "USDT"],
+    ["WBNB", "ALPACA", "USDT"],
+    ["WBNB", "BSW", "USDT"],
+    ["WBNB", "THE", "USDT"],
+    ["WBNB", "GMT", "USDT"],
+    ["WBNB", "CAKE", "XVS"],
+    ["WBNB", "CAKE", "ALPACA"],
+]
+
+# 4-way paths - Mix of blue chip and mid-cap
+FOUR_WAY_PATHS = [
+    # Blue chip paths
+    ["WBNB", "USDT", "BUSD", "USDC"],
+    ["WBNB", "USDT", "BUSD", "CAKE"],
+    ["WBNB", "USDT", "USDC", "BUSD"],
+    ["WBNB", "BUSD", "USDC", "USDT"],
+    ["WBNB", "ETH", "USDT", "BUSD"],
+    ["WBNB", "BTC", "USDT", "BUSD"],
+    ["WBNB", "CAKE", "USDT", "BUSD"],
+    ["WBNB", "CAKE", "BUSD", "USDT"],
+
+    # Mid-cap paths (potentially more profitable)
+    ["WBNB", "XVS", "USDT", "BUSD"],
+    ["WBNB", "ALPACA", "USDT", "BUSD"],
+    ["WBNB", "CAKE", "XVS", "USDT"],
+]
+
+# 5-way paths (very selective - only most liquid)
+FIVE_WAY_PATHS = [
+    ["WBNB", "USDT", "BUSD", "USDC", "CAKE"],
+    ["WBNB", "BUSD", "USDT", "USDC", "CAKE"],
+    ["WBNB", "USDC", "USDT", "BUSD", "CAKE"],
+    ["WBNB", "ETH", "USDT", "BUSD", "USDC"],
+    ["WBNB", "BTC", "USDT", "BUSD", "USDC"],
 ]
 
 # ERC20 ABI (minimal)
@@ -294,7 +361,7 @@ class CrossDEXArbitrageTracker:
                         gross_profit = trade_size_eur * (profit_pct / 100)
                         net_profit = gross_profit - flash_loan_fee - gas_cost
 
-                        if net_profit > 5:  # Min €5 profit
+                        if net_profit > 0.2:  # Min €0.2 profit (lowered threshold)
                             opportunities.append({
                                 "type": "2-way",
                                 "token0": token0,
@@ -321,7 +388,7 @@ class CrossDEXArbitrageTracker:
                         gross_profit = trade_size_eur * (profit_pct / 100)
                         net_profit = gross_profit - flash_loan_fee - gas_cost
 
-                        if net_profit > 5:
+                        if net_profit > 0.2:  # Min €0.2 profit (lowered threshold)
                             opportunities.append({
                                 "type": "2-way",
                                 "token0": token0,
@@ -346,10 +413,15 @@ class CrossDEXArbitrageTracker:
         opportunities = []
 
         for path in TRIANGULAR_PATHS:
-            # Try all combinations of DEXs for each hop
+            # Try all combinations of DEXs for each hop (3^3 = 27 combinations per path)
             dex_list = list(DEXS.keys())
 
-            for dex_combo in [(d1, d2, d3) for d1 in dex_list for d2 in dex_list for d3 in dex_list]:
+            # Generate all combinations (3^3 = 27 per path with 3 DEXs)
+            dex_combos = [(d1, d2, d3) for d1 in dex_list for d2 in dex_list for d3 in dex_list]
+
+            # Test ALL combinations (only 27, manageable even with public RPC)
+
+            for dex_combo in dex_combos:
                 try:
                     # Start with start_amount of path[0]
                     amount = start_amount
@@ -382,7 +454,7 @@ class CrossDEXArbitrageTracker:
 
                     net_profit = profit - flash_fee - gas_cost
 
-                    if net_profit > 10:  # Min €10 profit
+                    if net_profit > 0.2:  # Min €0.2 profit (lowered threshold)
                         opportunities.append({
                             "type": "3-way",
                             "path": " → ".join(path + [path[0]]),
@@ -392,6 +464,175 @@ class CrossDEXArbitrageTracker:
                             "profit_pct": profit_pct,
                             "gross_profit": profit,
                             "net_profit": net_profit
+                        })
+
+                except Exception as e:
+                    continue
+
+        return opportunities
+
+    def find_multihop_4way(self, start_amount: float = 10000) -> List[Dict]:
+        """
+        Find 4-way multi-hop arbitrage opportunities
+        Example: WBNB → USDT → BUSD → USDC → WBNB
+        """
+        opportunities = []
+
+        for path in FOUR_WAY_PATHS:
+            # Try all combinations of DEXs for each hop (3^4 = 81 combinations per path with 3 DEXs)
+            dex_list = list(DEXS.keys())
+
+            # Generate all combinations
+            dex_combos = [
+                (d1, d2, d3, d4)
+                for d1 in dex_list
+                for d2 in dex_list
+                for d3 in dex_list
+                for d4 in dex_list
+            ]
+
+            # Test 50 random combinations (good coverage, manageable speed)
+            if len(dex_combos) > 50:
+                dex_combos = random.sample(dex_combos, 50)
+
+            for dex_combo in dex_combos:
+                try:
+                    # Start with start_amount of path[0]
+                    amount = start_amount
+
+                    # Hop 1: path[0] → path[1]
+                    price1 = self.get_price(dex_combo[0], path[0], path[1], amount)
+                    if not price1:
+                        continue
+                    amount = price1
+
+                    # Hop 2: path[1] → path[2]
+                    price2 = self.get_price(dex_combo[1], path[1], path[2], amount)
+                    if not price2:
+                        continue
+                    amount = price2
+
+                    # Hop 3: path[2] → path[3]
+                    price3 = self.get_price(dex_combo[2], path[2], path[3], amount)
+                    if not price3:
+                        continue
+                    amount = price3
+
+                    # Hop 4: path[3] → path[0]
+                    price4 = self.get_price(dex_combo[3], path[3], path[0], amount)
+                    if not price4:
+                        continue
+                    final_amount = price4
+
+                    # Calculate profit
+                    profit = final_amount - start_amount
+                    profit_pct = (profit / start_amount) * 100
+
+                    # Account for gas (4 swaps = more gas)
+                    flash_fee = start_amount * 0.0009
+                    gas_cost = 40  # EUR (4 swaps)
+
+                    net_profit = profit - flash_fee - gas_cost
+
+                    if net_profit > 0.2:  # Min €0.2 profit (lowered threshold)
+                        opportunities.append({
+                            "type": "4-way",
+                            "path": " → ".join(path + [path[0]]),
+                            "dex_combo": " → ".join(dex_combo),
+                            "start_amount": start_amount,
+                            "final_amount": final_amount,
+                            "profit_pct": profit_pct,
+                            "gross_profit": profit,
+                            "net_profit": net_profit,
+                            "num_hops": 4
+                        })
+
+                except Exception as e:
+                    continue
+
+        return opportunities
+
+    def find_multihop_5way(self, start_amount: float = 10000) -> List[Dict]:
+        """
+        Find 5-way multi-hop arbitrage opportunities
+        Example: WBNB → USDT → BUSD → USDC → CAKE → WBNB
+        """
+        opportunities = []
+
+        for path in FIVE_WAY_PATHS:
+            # Try all combinations of DEXs for each hop (3^5 = 243 combinations per path with 3 DEXs)
+            dex_list = list(DEXS.keys())
+
+            # Generate all combinations
+            dex_combos = [
+                (d1, d2, d3, d4, d5)
+                for d1 in dex_list
+                for d2 in dex_list
+                for d3 in dex_list
+                for d4 in dex_list
+                for d5 in dex_list
+            ]
+
+            # Test 40 random combinations (reasonable coverage without being too slow)
+            if len(dex_combos) > 40:
+                dex_combos = random.sample(dex_combos, 40)
+
+            for dex_combo in dex_combos:
+                try:
+                    # Start with start_amount of path[0]
+                    amount = start_amount
+
+                    # Hop 1: path[0] → path[1]
+                    price1 = self.get_price(dex_combo[0], path[0], path[1], amount)
+                    if not price1:
+                        continue
+                    amount = price1
+
+                    # Hop 2: path[1] → path[2]
+                    price2 = self.get_price(dex_combo[1], path[1], path[2], amount)
+                    if not price2:
+                        continue
+                    amount = price2
+
+                    # Hop 3: path[2] → path[3]
+                    price3 = self.get_price(dex_combo[2], path[2], path[3], amount)
+                    if not price3:
+                        continue
+                    amount = price3
+
+                    # Hop 4: path[3] → path[4]
+                    price4 = self.get_price(dex_combo[3], path[3], path[4], amount)
+                    if not price4:
+                        continue
+                    amount = price4
+
+                    # Hop 5: path[4] → path[0]
+                    price5 = self.get_price(dex_combo[4], path[4], path[0], amount)
+                    if not price5:
+                        continue
+                    final_amount = price5
+
+                    # Calculate profit
+                    profit = final_amount - start_amount
+                    profit_pct = (profit / start_amount) * 100
+
+                    # Account for gas (5 swaps = high gas)
+                    flash_fee = start_amount * 0.0009
+                    gas_cost = 50  # EUR (5 swaps)
+
+                    net_profit = profit - flash_fee - gas_cost
+
+                    if net_profit > 0.2:  # Min €0.2 profit (lowered threshold)
+                        opportunities.append({
+                            "type": "5-way",
+                            "path": " → ".join(path + [path[0]]),
+                            "dex_combo": " → ".join(dex_combo),
+                            "start_amount": start_amount,
+                            "final_amount": final_amount,
+                            "profit_pct": profit_pct,
+                            "gross_profit": profit,
+                            "net_profit": net_profit,
+                            "num_hops": 5
                         })
 
                 except Exception as e:
@@ -437,7 +678,40 @@ class CrossDEXArbitrageTracker:
         else:
             print("  No opportunities found")
 
-        print(f"\nTotal: {len(opps_2way)} 2-way + {len(opps_3way)} 3-way = {len(opps_2way) + len(opps_3way)} opportunities")
+        # 4-way multi-hop
+        print("\nScanning 4-way multi-hop...")
+        opps_4way = self.find_multihop_4way(start_amount=10000)
+
+        if opps_4way:
+            print(f"  Found {len(opps_4way)} opportunities:")
+            for opp in opps_4way[:2]:  # Show top 2
+                print(f"    🔷 {opp['path']}")
+                print(f"       DEXs: {opp['dex_combo']}")
+                print(f"       Profit: €{opp['net_profit']:.2f} ({opp['profit_pct']:.3f}%)")
+
+            # Save to database
+            self.save_multihop_opportunities(opps_4way)
+        else:
+            print("  No opportunities found")
+
+        # 5-way complex
+        print("\nScanning 5-way complex...")
+        opps_5way = self.find_multihop_5way(start_amount=10000)
+
+        if opps_5way:
+            print(f"  Found {len(opps_5way)} opportunities:")
+            for opp in opps_5way[:2]:  # Show top 2
+                print(f"    🔶 {opp['path']}")
+                print(f"       DEXs: {opp['dex_combo']}")
+                print(f"       Profit: €{opp['net_profit']:.2f} ({opp['profit_pct']:.3f}%)")
+
+            # Save to database
+            self.save_multihop_opportunities(opps_5way)
+        else:
+            print("  No opportunities found")
+
+        total = len(opps_2way) + len(opps_3way) + len(opps_4way) + len(opps_5way)
+        print(f"\n📊 Total: {len(opps_2way)} 2-way + {len(opps_3way)} 3-way + {len(opps_4way)} 4-way + {len(opps_5way)} 5-way = {total} opportunities")
 
     def save_2way_opportunities(self, opportunities: List[Dict]):
         """Save 2-way opportunities to database"""
@@ -490,18 +764,47 @@ class CrossDEXArbitrageTracker:
         conn.commit()
         conn.close()
 
+    def save_multihop_opportunities(self, opportunities: List[Dict]):
+        """Save 4-way and 5-way opportunities to database"""
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+
+        for opp in opportunities:
+            cursor.execute('''
+                INSERT INTO multihop_4way_5way
+                (timestamp, path, num_hops, dex_combination, input_amount, output_amount,
+                 profit_pct, estimated_profit_eur)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            ''', (
+                datetime.now(),
+                opp['path'],
+                opp['num_hops'],
+                opp['dex_combo'],
+                opp['start_amount'],
+                opp['final_amount'],
+                opp['profit_pct'],
+                opp['net_profit']
+            ))
+
+        conn.commit()
+        conn.close()
+
     def run(self, interval_seconds: int = 30):
         """
         Main loop: scan continuously
         """
         print("="*70)
-        print("🚀 CROSS-DEX & MULTI-HOP ARBITRAGE TRACKER")
+        print("🚀 CROSS-DEX & MULTI-HOP ARBITRAGE TRACKER (EXPANDED)")
         print("="*70)
         print(f"Monitoring {len(DEXS)} DEXs:")
         for dex_name, dex_info in DEXS.items():
             print(f"  - {dex_info['name']} (fee: {dex_info['fee']*100}%)")
-        print(f"\nPairs: {len(PRIORITY_PAIRS)}")
-        print(f"Triangular paths: {len(TRIANGULAR_PATHS)}")
+        print(f"\nTokens: {len(TOKENS)} ({len([k for k in TOKENS.keys() if k not in ['WBNB','BUSD','USDT','USDC','ETH','BTC','CAKE']])} mid-cap)")
+        print(f"2-way pairs: {len(PRIORITY_PAIRS)}")
+        print(f"3-way paths: {len(TRIANGULAR_PATHS)}")
+        print(f"4-way paths: {len(FOUR_WAY_PATHS)}")
+        print(f"5-way paths: {len(FIVE_WAY_PATHS)}")
+        print(f"Profit threshold: >€0.2 (all types)")
         print(f"Scan interval: {interval_seconds}s")
         print("="*70)
 

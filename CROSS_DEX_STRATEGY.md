@@ -112,8 +112,9 @@
 - ✅ Monitoring real-time prezzi su 3 DEX
 - ✅ Rilevamento 2-way cross-DEX
 - ✅ Rilevamento 3-way triangular
+- ✅ Rilevamento 4-way multi-hop
+- ✅ Rilevamento 5-way complex
 - ✅ Database SQLite per storage
-- 🔜 4-way e 5-way (prossima implementazione)
 
 **Database**: `arbitrage-data/cross_dex_arbitrage.db`
 
@@ -140,14 +141,30 @@
 
 ```
 🚀 CROSS-DEX TRACKER
-├─ Status: ✅ Running (PID: 981334)
-├─ Started: 16 Nov 2025 15:48
+├─ Status: ✅ Running (PID: 1023534)
+├─ Started: 16 Nov 2025 16:48
 ├─ DEXs: 3 (PancakeSwap V2, Biswap, ApeSwap)
 ├─ Pairs: 9 coppie prioritarie
-├─ Paths: 6 percorsi triangolari
-├─ Scan interval: 30 secondi
+├─ Paths: 6 triangolari + 8 4-way + 5 5-way
+├─ Scan interval: ~5-10 minuti (RPC pubblico lento)
+├─ Detection: ✅ 2-way, ✅ 3-way, ✅ 4-way, ✅ 5-way
 └─ Log: cross-dex-tracker.log
 ```
+
+**Ottimizzazioni Implementate**:
+- Limitate combinazioni DEX per velocità (RPC pubblico MOLTO lento):
+  - 3-way: 15 combinazioni random per path (su 27 possibili)
+  - 4-way: 30 combinazioni random per path (su 81 possibili)
+  - 5-way: 20 combinazioni random per path (su 243 possibili)
+- Tempo scan completo: ~5-10 minuti
+- Scans per ora: ~6-12
+
+**⚠️ Limitazioni RPC**:
+- **Nodo locale Geth**: Non utilizzabile (modalità snap sync = no state history)
+- **RPC pubblico BSC**: ~500ms-1s per chiamata = MOLTO lento
+- **Per velocizzare**: Serve RPC privato/pagato (Ankr €49/mese, QuickNode €29/mese)
+  - Con RPC privato: scan completo in 30-60 secondi (vs 5-10 minuti)
+  - Possibilità di testare TUTTE le combinazioni invece di subset random
 
 ### Dati Raccolti
 
@@ -162,13 +179,15 @@ python3 scripts/analyze_cross_dex_results.py
 
 ### Fase 1: Testing (In corso)
 - [x] Implementare monitoring 2-way e 3-way
-- [x] Avviare tracker
+- [x] Implementare monitoring 4-way e 5-way
+- [x] Ottimizzare velocità scan per RPC pubblico
+- [x] Avviare tracker completo
 - [ ] Raccogliere dati per 24-48 ore
 - [ ] Analizzare profittabilità reale
 
 ### Fase 2: Espansione
-- [ ] Implementare 4-way e 5-way
 - [ ] Aggiungere più DEX (PancakeSwap V3, THENA)
+- [ ] Upgrade a RPC privato/pagato per velocità
 - [ ] Ottimizzare gas bidding
 - [ ] Implementare execution automatica
 
@@ -338,6 +357,8 @@ Basandoci su ricerche di mercato e stime conservative:
 
 ---
 
-**Status**: 🟢 In Testing - Raccolta Dati in Corso
+**Status**: 🟢 Sistema Completo - Raccolta Dati in Corso
 
-**Next Review**: Dopo 24-48 ore di monitoring
+**Implementato**: 2-way, 3-way, 4-way, 5-way detection
+
+**Next Review**: Dopo 24-48 ore di monitoring (analisi dati con `scripts/analyze_cross_dex_results.py`)
