@@ -1,0 +1,738 @@
+✅ Database initialized: arbitrage-data/arbitrage.db
+🚀 Enhanced Tracker Started - Block: 68313017
+
+============================================================
+🔥 FIXED ARBITRAGE MONITORING SYSTEM
+============================================================
+
+✅ NOW TRACKING REAL ARBITRAGE ONLY:
+  • Requires 2+ Swap events in single transaction
+  • Proper Swap event signature detection
+  • Multi-hop arbitrage paths
+  • Real arbitrageur competition
+
+❌ NO LONGER COUNTING:
+  • Regular single-swap trades
+  • Normal DEX users
+
+💾 Database: arbitrage-data/arbitrage.db
+🌐 Dashboard: Run 'python3 scripts/dashboard.py' to view
+
+
+📦 New Block: 68313019 (checking 2 blocks)
+
+📦 New Block: 68313102 (checking 83 blocks)
+
+📦 New Block: 68313230 (checking 128 blocks)
+
+📦 New Block: 68313383 (checking 153 blocks)
+
+📦 New Block: 68313551 (checking 168 blocks)
+
+📦 New Block: 68313727 (checking 176 blocks)
+
+📦 New Block: 68313908 (checking 181 blocks)
+
+📦 New Block: 68314098 (checking 190 blocks)
+
+📦 New Block: 68314295 (checking 197 blocks)
+
+📦 New Block: 68314485 (checking 190 blocks)
+
+📦 New Block: 68314679 (checking 194 blocks)
+
+📦 New Block: 68314873 (checking 194 blocks)
+
+📦 New Block: 68315064 (checking 191 blocks)
+
+📦 New Block: 68315254 (checking 190 blocks)
+
+📦 New Block: 68315445 (checking 191 blocks)
+
+📦 New Block: 68315639 (checking 194 blocks)
+
+📦 New Block: 68315832 (checking 193 blocks)
+
+⏰ Scan #18 - 21:21:55
+  💰 WBNB-BUSD: 0.3% → $16,880
+  💰 USDT-WBNB: 0.3% → $46,941
+
+📦 New Block: 68316027 (checking 195 blocks)
+
+⏰ Scan #19 - 21:24:20
+  💰 WBNB-BUSD: 0.3% → $17,256
+  💰 USDT-WBNB: 0.3% → $46,989
+
+📦 New Block: 68316220 (checking 193 blocks)
+
+⏰ Scan #20 - 21:26:41
+  💰 WBNB-BUSD: 0.3% → $17,255
+  💰 USDT-WBNB: 0.3% → $46,797
+
+📦 New Block: 68316408 (checking 188 blocks)
+
+⏰ Scan #21 - 21:29:04
+  💰 WBNB-BUSD: 0.3% → $17,796
+  💰 USDT-WBNB: 0.3% → $49,128
+
+📦 New Block: 68316598 (checking 190 blocks)
+
+⏰ Scan #22 - 21:31:29
+  💰 WBNB-BUSD: 0.4% → $18,409
+  💰 USDT-WBNB: 0.3% → $50,300
+
+📦 New Block: 68316792 (checking 194 blocks)
+
+⏰ Scan #23 - 21:33:59
+  💰 WBNB-BUSD: 0.4% → $19,179
+  💰 USDT-WBNB: 0.4% → $52,510
+
+📦 New Block: 68316992 (checking 200 blocks)
+
+⏰ Scan #24 - 21:36:24
+  💰 WBNB-BUSD: 0.4% → $19,179
+  💰 USDT-WBNB: 0.4% → $52,849
+
+📦 New Block: 68317185 (checking 193 blocks)
+
+⏰ Scan #25 - 21:38:51
+  💰 WBNB-BUSD: 0.4% → $19,179
+  💰 USDT-WBNB: 0.3% → $51,976
+
+📦 New Block: 68317382 (checking 197 blocks)
+
+⏰ Scan #26 - 21:41:14
+  💰 WBNB-BUSD: 0.4% → $19,179
+  💰 USDT-WBNB: 0.3% → $51,722
+
+📦 New Block: 68317573 (checking 191 blocks)
+
+⏰ Scan #27 - 21:43:35
+  💰 WBNB-BUSD: 0.4% → $19,182
+  💰 USDT-WBNB: 0.4% → $52,822
+
+📦 New Block: 68317760 (checking 187 blocks)
+
+⏰ Scan #28 - 21:45:53
+  💰 WBNB-BUSD: 0.4% → $20,451
+  💰 USDT-WBNB: 0.4% → $57,003
+
+📦 New Block: 68317945 (checking 185 blocks)
+
+⏰ Scan #29 - 21:48:16
+  💰 WBNB-BUSD: 0.4% → $20,458
+  💰 USDT-WBNB: 0.4% → $56,962
+
+📦 New Block: 68318134 (checking 189 blocks)
+
+⏰ Scan #30 - 21:50:35
+  💰 WBNB-BUSD: 0.4% → $21,675
+  💰 USDT-WBNB: 0.4% → $62,346
+
+📦 New Block: 68318321 (checking 187 blocks)
+
+⏰ Scan #31 - 21:52:53
+  💰 WBNB-BUSD: 0.5% → $25,387
+  💰 USDT-WBNB: 0.5% → $70,964
+
+📦 New Block: 68318505 (checking 184 blocks)
+
+⏰ Scan #32 - 21:55:16
+  💰 WBNB-BUSD: 0.5% → $26,278
+  💰 USDT-WBNB: 0.5% → $74,205
+
+📦 New Block: 68318695 (checking 190 blocks)
+
+⏰ Scan #33 - 21:57:38
+  💰 WBNB-BUSD: 0.5% → $26,279
+  💰 USDT-WBNB: 0.5% → $75,144
+
+📦 New Block: 68318884 (checking 189 blocks)
+
+⏰ Scan #34 - 22:00:01
+  💰 WBNB-BUSD: 0.5% → $26,306
+  💰 USDT-WBNB: 0.5% → $75,905
+
+📦 New Block: 68319076 (checking 192 blocks)
+
+⏰ Scan #35 - 22:02:25
+  💰 WBNB-BUSD: 0.5% → $26,306
+  💰 USDT-WBNB: 0.5% → $76,669
+
+📦 New Block: 68319266 (checking 190 blocks)
+
+⏰ Scan #36 - 22:04:44
+  💰 WBNB-BUSD: 0.5% → $26,425
+  💰 USDT-WBNB: 0.5% → $76,800
+
+📦 New Block: 68319452 (checking 186 blocks)
+
+⏰ Scan #37 - 22:06:58
+  💰 WBNB-BUSD: 0.5% → $26,425
+  💰 USDT-WBNB: 0.5% → $75,409
+
+📦 New Block: 68319631 (checking 179 blocks)
+
+⏰ Scan #38 - 22:09:12
+  💰 WBNB-BUSD: 0.5% → $26,425
+  💰 USDT-WBNB: 0.5% → $74,500
+
+📦 New Block: 68319808 (checking 177 blocks)
+
+⏰ Scan #39 - 22:11:24
+  💰 WBNB-BUSD: 0.5% → $26,425
+  💰 USDT-WBNB: 0.5% → $73,898
+
+📦 New Block: 68319985 (checking 177 blocks)
+
+⏰ Scan #40 - 22:13:37
+  💰 WBNB-BUSD: 0.5% → $26,468
+  💰 USDT-WBNB: 0.5% → $72,984
+
+📦 New Block: 68320162 (checking 177 blocks)
+
+⏰ Scan #41 - 22:15:47
+  💰 WBNB-BUSD: 0.5% → $26,465
+  💰 USDT-WBNB: 0.5% → $75,920
+
+📦 New Block: 68320336 (checking 174 blocks)
+
+⏰ Scan #42 - 22:17:57
+  💰 WBNB-BUSD: 0.5% → $27,210
+  💰 USDT-WBNB: 0.5% → $76,223
+
+📦 New Block: 68320509 (checking 173 blocks)
+
+⏰ Scan #43 - 22:20:08
+  💰 WBNB-BUSD: 0.5% → $27,927
+  💰 USDT-WBNB: 0.5% → $77,222
+
+📦 New Block: 68320684 (checking 175 blocks)
+
+⏰ Scan #44 - 22:22:19
+  💰 WBNB-BUSD: 0.6% → $29,089
+  💰 USDT-WBNB: 0.5% → $80,787
+
+📦 New Block: 68320858 (checking 174 blocks)
+
+⏰ Scan #45 - 22:24:26
+  💰 WBNB-BUSD: 0.6% → $29,655
+  💰 USDT-WBNB: 0.5% → $81,751
+
+📦 New Block: 68321028 (checking 170 blocks)
+
+⏰ Scan #46 - 22:26:37
+  💰 WBNB-BUSD: 0.6% → $29,650
+  💰 USDT-WBNB: 0.6% → $83,901
+
+📦 New Block: 68321202 (checking 174 blocks)
+
+⏰ Scan #47 - 22:28:48
+  💰 WBNB-BUSD: 0.6% → $31,015
+  💰 USDT-WBNB: 0.6% → $86,707
+
+📦 New Block: 68321378 (checking 176 blocks)
+
+⏰ Scan #48 - 22:31:01
+  💰 WBNB-BUSD: 0.6% → $31,015
+  💰 USDT-WBNB: 0.6% → $87,855
+
+📦 New Block: 68321555 (checking 177 blocks)
+
+⏰ Scan #49 - 22:33:13
+  💰 WBNB-BUSD: 0.6% → $31,015
+  💰 USDT-WBNB: 0.6% → $88,082
+
+📦 New Block: 68321731 (checking 176 blocks)
+
+⏰ Scan #50 - 22:35:26
+  💰 WBNB-BUSD: 0.6% → $31,044
+  💰 USDT-WBNB: 0.6% → $87,368
+
+📦 New Block: 68321908 (checking 177 blocks)
+
+⏰ Scan #51 - 22:37:39
+  💰 WBNB-BUSD: 0.6% → $31,038
+  💰 USDT-WBNB: 0.6% → $87,595
+
+📦 New Block: 68322084 (checking 176 blocks)
+
+⏰ Scan #52 - 22:39:51
+  💰 WBNB-BUSD: 0.6% → $30,925
+  💰 USDT-WBNB: 0.6% → $87,939
+
+📦 New Block: 68322261 (checking 177 blocks)
+
+⏰ Scan #53 - 22:42:02
+  💰 WBNB-BUSD: 0.7% → $38,790
+
+📦 New Block: 68322436 (checking 175 blocks)
+
+⏰ Scan #54 - 22:44:24
+  💰 WBNB-BUSD: 0.8% → $39,707
+
+📦 New Block: 68322625 (checking 189 blocks)
+
+⏰ Scan #55 - 22:46:53
+  💰 WBNB-BUSD: 0.8% → $39,708
+
+📦 New Block: 68322824 (checking 199 blocks)
+
+⏰ Scan #56 - 22:49:23
+  💰 WBNB-BUSD: 0.8% → $39,707
+
+📦 New Block: 68323024 (checking 200 blocks)
+
+⏰ Scan #57 - 22:51:51
+  💰 WBNB-BUSD: 0.8% → $40,887
+
+📦 New Block: 68323222 (checking 198 blocks)
+
+⏰ Scan #58 - 22:54:16
+  💰 WBNB-BUSD: 0.8% → $41,362
+
+📦 New Block: 68323415 (checking 193 blocks)
+
+⏰ Scan #59 - 22:56:40
+  💰 WBNB-BUSD: 0.8% → $41,363
+
+📦 New Block: 68323607 (checking 192 blocks)
+
+⏰ Scan #60 - 22:59:08
+  💰 WBNB-BUSD: 0.8% → $41,360
+
+📦 New Block: 68323804 (checking 197 blocks)
+
+⏰ Scan #61 - 23:01:39
+  💰 WBNB-BUSD: 0.8% → $41,473
+
+📦 New Block: 68324005 (checking 201 blocks)
+
+⏰ Scan #62 - 23:04:08
+  💰 WBNB-BUSD: 0.8% → $41,473
+
+📦 New Block: 68324204 (checking 199 blocks)
+
+⏰ Scan #63 - 23:06:37
+  💰 WBNB-BUSD: 0.8% → $41,472
+
+📦 New Block: 68324402 (checking 198 blocks)
+
+⏰ Scan #64 - 23:09:00
+  💰 WBNB-BUSD: 0.8% → $41,472
+
+📦 New Block: 68324594 (checking 192 blocks)
+
+⏰ Scan #65 - 23:11:24
+  💰 WBNB-BUSD: 0.8% → $41,483
+
+📦 New Block: 68324785 (checking 191 blocks)
+
+⏰ Scan #66 - 23:13:53
+  💰 WBNB-BUSD: 0.8% → $41,482
+
+📦 New Block: 68324984 (checking 199 blocks)
+
+⏰ Scan #67 - 23:16:21
+  💰 WBNB-BUSD: 0.7% → $37,087
+
+📦 New Block: 68325180 (checking 196 blocks)
+
+⏰ Scan #68 - 23:18:47
+  💰 WBNB-BUSD: 0.7% → $35,910
+
+📦 New Block: 68325376 (checking 196 blocks)
+
+⏰ Scan #69 - 23:21:13
+  💰 WBNB-BUSD: 0.7% → $35,910
+  💰 USDT-WBNB: 0.7% → $98,666
+
+📦 New Block: 68325571 (checking 195 blocks)
+
+⏰ Scan #70 - 23:23:40
+  💰 WBNB-BUSD: 0.7% → $36,714
+  💰 USDT-WBNB: 0.7% → $97,229
+
+📦 New Block: 68325767 (checking 196 blocks)
+
+⏰ Scan #71 - 23:26:07
+  💰 WBNB-BUSD: 0.7% → $36,683
+  💰 USDT-WBNB: 0.6% → $94,504
+
+📦 New Block: 68325963 (checking 196 blocks)
+
+⏰ Scan #72 - 23:28:32
+  💰 WBNB-BUSD: 0.7% → $36,684
+  💰 USDT-WBNB: 0.6% → $93,975
+
+📦 New Block: 68326155 (checking 192 blocks)
+
+⏰ Scan #73 - 23:30:56
+  💰 WBNB-BUSD: 0.7% → $36,684
+  💰 USDT-WBNB: 0.6% → $93,557
+
+📦 New Block: 68326348 (checking 193 blocks)
+
+⏰ Scan #74 - 23:33:17
+  💰 WBNB-BUSD: 0.7% → $36,683
+  💰 USDT-WBNB: 0.6% → $92,166
+
+📦 New Block: 68326536 (checking 188 blocks)
+
+⏰ Scan #75 - 23:35:40
+  💰 WBNB-BUSD: 0.7% → $36,683
+  💰 USDT-WBNB: 0.6% → $94,320
+
+📦 New Block: 68326726 (checking 190 blocks)
+
+⏰ Scan #76 - 23:38:01
+  💰 WBNB-BUSD: 0.7% → $36,774
+  💰 USDT-WBNB: 0.6% → $94,576
+
+📦 New Block: 68326914 (checking 188 blocks)
+
+⏰ Scan #77 - 23:40:27
+  💰 WBNB-BUSD: 0.8% → $41,256
+  💰 USDT-WBNB: 0.6% → $94,667
+
+📦 New Block: 68327109 (checking 195 blocks)
+
+⏰ Scan #78 - 23:42:53
+  💰 WBNB-BUSD: 0.8% → $39,357
+  💰 USDT-WBNB: 0.6% → $90,392
+
+📦 New Block: 68327304 (checking 195 blocks)
+
+⏰ Scan #79 - 23:45:22
+  💰 WBNB-BUSD: 0.8% → $39,211
+  💰 USDT-WBNB: 0.6% → $89,495
+
+📦 New Block: 68327502 (checking 198 blocks)
+
+⏰ Scan #80 - 23:47:50
+  💰 WBNB-BUSD: 0.8% → $39,249
+  💰 USDT-WBNB: 0.6% → $87,255
+
+📦 New Block: 68327699 (checking 197 blocks)
+
+⏰ Scan #81 - 23:50:12
+  💰 WBNB-BUSD: 0.8% → $39,124
+  💰 USDT-WBNB: 0.6% → $89,919
+
+📦 New Block: 68327889 (checking 190 blocks)
+
+⏰ Scan #82 - 23:52:28
+  💰 WBNB-BUSD: 0.8% → $39,124
+  💰 USDT-WBNB: 0.6% → $88,595
+
+📦 New Block: 68328070 (checking 181 blocks)
+
+⏰ Scan #83 - 23:54:40
+  💰 WBNB-BUSD: 0.7% → $38,895
+  💰 USDT-WBNB: 0.6% → $87,317
+
+📦 New Block: 68328247 (checking 177 blocks)
+
+⏰ Scan #84 - 23:56:56
+  💰 WBNB-BUSD: 0.7% → $37,251
+  💰 USDT-WBNB: 0.5% → $77,911
+
+📦 New Block: 68328427 (checking 180 blocks)
+
+⏰ Scan #85 - 23:59:13
+  💰 WBNB-BUSD: 0.7% → $37,096
+  💰 USDT-WBNB: 0.5% → $75,121
+
+📦 New Block: 68328611 (checking 184 blocks)
+
+⏰ Scan #86 - 00:01:32
+  💰 WBNB-BUSD: 0.7% → $37,096
+  💰 USDT-WBNB: 0.5% → $74,718
+
+📦 New Block: 68328796 (checking 185 blocks)
+
+⏰ Scan #87 - 00:03:56
+  💰 WBNB-BUSD: 0.7% → $36,831
+  💰 USDT-WBNB: 0.5% → $75,337
+
+📦 New Block: 68328988 (checking 192 blocks)
+
+⏰ Scan #88 - 00:06:23
+  💰 WBNB-BUSD: 0.7% → $36,332
+  💰 USDT-WBNB: 0.5% → $75,288
+
+📦 New Block: 68329183 (checking 195 blocks)
+
+⏰ Scan #89 - 00:08:51
+  💰 WBNB-BUSD: 0.7% → $35,834
+  💰 USDT-WBNB: 0.5% → $77,055
+
+📦 New Block: 68329381 (checking 198 blocks)
+
+⏰ Scan #90 - 00:11:16
+  💰 WBNB-BUSD: 0.6% → $33,553
+  💰 USDT-WBNB: 0.5% → $80,214
+
+📦 New Block: 68329574 (checking 193 blocks)
+
+⏰ Scan #91 - 00:13:42
+  💰 WBNB-BUSD: 0.6% → $33,050
+  💰 USDT-WBNB: 0.5% → $77,646
+
+📦 New Block: 68329769 (checking 195 blocks)
+
+⏰ Scan #92 - 00:16:11
+  💰 WBNB-BUSD: 0.6% → $31,349
+  💰 USDT-WBNB: 0.5% → $77,749
+
+📦 New Block: 68329968 (checking 199 blocks)
+
+⏰ Scan #93 - 00:18:40
+  💰 WBNB-BUSD: 0.5% → $27,152
+  💰 USDT-WBNB: 0.5% → $74,052
+
+📦 New Block: 68330166 (checking 198 blocks)
+
+⏰ Scan #94 - 00:21:11
+  💰 WBNB-BUSD: 0.5% → $27,152
+  💰 USDT-WBNB: 0.5% → $73,385
+
+📦 New Block: 68330368 (checking 202 blocks)
+
+⏰ Scan #95 - 00:23:42
+  💰 WBNB-BUSD: 0.5% → $27,148
+  💰 USDT-WBNB: 0.5% → $73,687
+
+📦 New Block: 68330570 (checking 202 blocks)
+
+⏰ Scan #96 - 00:26:13
+  💰 WBNB-BUSD: 0.5% → $27,068
+  💰 USDT-WBNB: 0.5% → $78,522
+
+📦 New Block: 68330770 (checking 200 blocks)
+
+⏰ Scan #97 - 00:28:45
+  💰 WBNB-BUSD: 0.5% → $27,047
+  💰 USDT-WBNB: 0.5% → $78,879
+
+📦 New Block: 68330972 (checking 202 blocks)
+
+⏰ Scan #98 - 00:31:19
+  💰 WBNB-BUSD: 0.5% → $27,047
+  💰 USDT-WBNB: 0.5% → $78,768
+
+📦 New Block: 68331178 (checking 206 blocks)
+
+⏰ Scan #99 - 00:33:55
+  💰 WBNB-BUSD: 0.5% → $26,695
+  💰 USDT-WBNB: 0.5% → $73,553
+
+📦 New Block: 68331387 (checking 209 blocks)
+
+⏰ Scan #100 - 00:36:36
+  💰 WBNB-BUSD: 0.5% → $25,528
+  💰 USDT-WBNB: 0.5% → $67,951
+
+📦 New Block: 68331602 (checking 215 blocks)
+
+⏰ Scan #101 - 00:39:15
+  💰 WBNB-BUSD: 0.5% → $25,524
+  💰 USDT-WBNB: 0.4% → $66,720
+
+📦 New Block: 68331812 (checking 210 blocks)
+
+⏰ Scan #102 - 00:41:52
+  💰 WBNB-BUSD: 0.5% → $25,525
+  💰 USDT-WBNB: 0.4% → $65,984
+
+📦 New Block: 68332021 (checking 209 blocks)
+
+⏰ Scan #103 - 00:44:22
+  💰 WBNB-BUSD: 0.5% → $25,525
+  💰 USDT-WBNB: 0.4% → $65,118
+
+📦 New Block: 68332221 (checking 200 blocks)
+
+⏰ Scan #104 - 00:46:48
+  💰 WBNB-BUSD: 0.5% → $25,525
+  💰 USDT-WBNB: 0.4% → $60,863
+
+📦 New Block: 68332416 (checking 195 blocks)
+
+⏰ Scan #105 - 00:49:14
+  💰 WBNB-BUSD: 0.5% → $25,525
+  💰 USDT-WBNB: 0.4% → $62,772
+
+📦 New Block: 68332611 (checking 195 blocks)
+
+⏰ Scan #106 - 00:51:42
+  💰 WBNB-BUSD: 0.5% → $25,525
+  💰 USDT-WBNB: 0.4% → $67,056
+
+📦 New Block: 68332808 (checking 197 blocks)
+
+⏰ Scan #107 - 00:54:10
+  💰 WBNB-BUSD: 0.5% → $25,528
+  💰 USDT-WBNB: 0.4% → $66,841
+
+📦 New Block: 68333006 (checking 198 blocks)
+
+⏰ Scan #108 - 00:56:39
+  💰 WBNB-BUSD: 0.5% → $25,528
+  💰 USDT-WBNB: 0.5% → $69,488
+
+📦 New Block: 68333204 (checking 198 blocks)
+
+⏰ Scan #109 - 00:59:02
+  💰 WBNB-BUSD: 0.5% → $25,528
+  💰 USDT-WBNB: 0.5% → $69,987
+
+📦 New Block: 68333395 (checking 191 blocks)
+
+⏰ Scan #110 - 01:01:22
+  💰 WBNB-BUSD: 0.5% → $25,882
+  💰 USDT-WBNB: 0.5% → $76,430
+
+📦 New Block: 68333582 (checking 187 blocks)
+
+⏰ Scan #111 - 01:03:45
+  💰 WBNB-BUSD: 0.5% → $26,382
+  💰 USDT-WBNB: 0.5% → $78,020
+
+📦 New Block: 68333771 (checking 189 blocks)
+
+⏰ Scan #112 - 01:06:15
+  💰 WBNB-BUSD: 0.5% → $26,382
+  💰 USDT-WBNB: 0.5% → $73,966
+
+📦 New Block: 68333972 (checking 201 blocks)
+
+⏰ Scan #113 - 01:08:48
+  💰 WBNB-BUSD: 0.5% → $28,094
+  💰 USDT-WBNB: 0.5% → $79,598
+
+📦 New Block: 68334175 (checking 203 blocks)
+
+⏰ Scan #114 - 01:11:14
+  💰 WBNB-BUSD: 0.6% → $29,329
+  💰 USDT-WBNB: 0.6% → $82,333
+
+📦 New Block: 68334371 (checking 196 blocks)
+
+⏰ Scan #115 - 01:13:38
+  💰 WBNB-BUSD: 0.6% → $29,329
+  💰 USDT-WBNB: 0.5% → $79,946
+
+📦 New Block: 68334562 (checking 191 blocks)
+
+⏰ Scan #116 - 01:15:58
+  💰 WBNB-BUSD: 0.6% → $29,329
+  💰 USDT-WBNB: 0.6% → $85,257
+
+📦 New Block: 68334749 (checking 187 blocks)
+
+⏰ Scan #117 - 01:18:21
+  💰 WBNB-BUSD: 0.6% → $29,452
+  💰 USDT-WBNB: 0.6% → $89,078
+
+📦 New Block: 68334940 (checking 191 blocks)
+
+⏰ Scan #118 - 01:20:48
+  💰 WBNB-BUSD: 0.6% → $31,659
+  💰 USDT-WBNB: 0.6% → $90,339
+
+📦 New Block: 68335136 (checking 196 blocks)
+
+⏰ Scan #119 - 01:23:23
+  💰 WBNB-BUSD: 0.6% → $31,946
+  💰 USDT-WBNB: 0.6% → $91,486
+
+📦 New Block: 68335343 (checking 207 blocks)
+
+⏰ Scan #120 - 01:26:00
+  💰 WBNB-BUSD: 0.6% → $32,314
+  💰 USDT-WBNB: 0.6% → $94,157
+
+📦 New Block: 68335552 (checking 209 blocks)
+
+⏰ Scan #121 - 01:28:42
+  💰 WBNB-BUSD: 0.6% → $33,626
+
+📦 New Block: 68335768 (checking 216 blocks)
+
+⏰ Scan #122 - 01:31:20
+  💰 WBNB-BUSD: 0.6% → $33,762
+
+📦 New Block: 68335979 (checking 211 blocks)
+
+⏰ Scan #123 - 01:34:09
+  💰 WBNB-BUSD: 0.7% → $35,967
+
+📦 New Block: 68336203 (checking 224 blocks)
+
+⏰ Scan #124 - 01:38:11
+  💰 WBNB-BUSD: 0.7% → $35,968
+
+📦 New Block: 68336527 (checking 324 blocks)
+
+⏰ Scan #125 - 01:44:14
+  💰 WBNB-BUSD: 0.7% → $35,968
+
+📦 New Block: 68337011 (checking 484 blocks)
+
+⏰ Scan #126 - 01:51:46
+  💰 WBNB-BUSD: 0.7% → $35,968
+
+📦 New Block: 68337613 (checking 602 blocks)
+
+⏰ Scan #127 - 02:01:44
+  💰 WBNB-BUSD: 0.8% → $40,954
+
+📦 New Block: 68338410 (checking 797 blocks)
+
+⏰ Scan #128 - 02:14:48
+  💰 WBNB-BUSD: 0.8% → $41,024
+
+📦 New Block: 68339455 (checking 1045 blocks)
+
+⏰ Scan #129 - 02:31:46
+  💰 WBNB-BUSD: 0.8% → $41,359
+
+📦 New Block: 68340814 (checking 1359 blocks)
+
+⏰ Scan #130 - 02:52:47
+  💰 WBNB-BUSD: 1.0% → $51,382
+
+📦 New Block: 68342494 (checking 1680 blocks)
+
+⏰ Scan #131 - 03:18:57
+  💰 WBNB-BUSD: 0.8% → $40,333
+
+📦 New Block: 68344588 (checking 2094 blocks)
+
+⏰ Scan #132 - 03:52:09
+  💰 WBNB-BUSD: 0.4% → $23,175
+  💰 USDT-WBNB: 0.4% → $69,192
+
+📦 New Block: 68347243 (checking 2655 blocks)
+
+📦 New Block: 68350641 (checking 3398 blocks)
+
+📦 New Block: 68354916 (checking 4275 blocks)
+
+📦 New Block: 68360210 (checking 5294 blocks)
+
+⏰ Scan #136 - 07:55:22
+  💰 CAKE-WBNB: 0.3% → $40,375
+
+📦 New Block: 68366699 (checking 6489 blocks)
+
+⏰ Scan #137 - 09:35:57
+  💰 CAKE-WBNB: 0.4% → $52,014
+
+📦 New Block: 68374743 (checking 8044 blocks)
+
+⏰ Scan #138 - 11:50:14
+  💰 CAKE-WBNB: 0.3% → $38,001
+
+📦 New Block: 68385485 (checking 10742 blocks)

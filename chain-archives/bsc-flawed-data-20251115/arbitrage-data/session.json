@@ -1,0 +1,10 @@
+{
+  "start_time": "2025-11-15T13:01:50.070857",
+  "end_time": "2025-11-15T15:01:21.096960",
+  "duration_seconds": 7171.026106,
+  "opportunities_logged": 565,
+  "arbitrage_detected": 13,
+  "unique_arbitrageurs": 13,
+  "total_estimated_profit": 0.8619940500000001,
+  "blocks_scanned": 680
+}

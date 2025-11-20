@@ -1,0 +1,46 @@
+✅ Database initialized: arbitrage-data/arbitrage.db
+🚀 Enhanced Tracker Started - Block: 68391050
+
+============================================================
+🔥 FIXED ARBITRAGE MONITORING SYSTEM
+============================================================
+
+✅ NOW TRACKING REAL ARBITRAGE ONLY:
+  • Requires 2+ Swap events in single transaction
+  • Proper Swap event signature detection
+  • Multi-hop arbitrage paths
+  • Real arbitrageur competition
+
+❌ NO LONGER COUNTING:
+  • Regular single-swap trades
+  • Normal DEX users
+
+💾 Database: arbitrage-data/arbitrage.db
+🌐 Dashboard: Run 'python3 scripts/dashboard.py' to view
+
+
+⏰ Scan #1 - 12:59:50
+  💰 WBNB-BUSD: 0.5% → $28,427
+  💰 USDT-WBNB: 0.6% → $98,906
+  💰 CAKE-WBNB: 0.6% → $72,934
+
+📦 New Block: 68391052 (checking 2 blocks)
+
+⏰ Scan #2 - 13:01:34
+  💰 WBNB-BUSD: 0.5% → $28,423
+  💰 USDT-WBNB: 0.6% → $98,480
+  💰 CAKE-WBNB: 0.6% → $72,929
+
+📦 New Block: 68391191 (checking 139 blocks)
+
+❌ Error: 'NoneType' object has no attribute 'lower'
+Traceback (most recent call last):
+  File "/home/alessio/Projects/bsc/scripts/enhanced_tracker.py", line 520, in run
+    self.monitor_blocks()
+  File "/home/alessio/Projects/bsc/scripts/enhanced_tracker.py", line 432, in monitor_blocks
+    arb = self.detect_direct_pool_arbitrage(tx, receipt)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alessio/Projects/bsc/scripts/enhanced_tracker.py", line 355, in detect_direct_pool_arbitrage
+    to_address = tx.get('to', '').lower()
+                 ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'lower'

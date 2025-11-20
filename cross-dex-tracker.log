@@ -1,0 +1,520 @@
+✅ Database initialized: arbitrage-data/cross_dex_arbitrage.db
+======================================================================
+🚀 CROSS-DEX & MULTI-HOP ARBITRAGE TRACKER (EXPANDED)
+======================================================================
+Monitoring 3 DEXs:
+  - PancakeSwap V2 (fee: 0.25%)
+  - Biswap (fee: 0.1%)
+  - ApeSwap (fee: 0.2%)
+
+Tokens: 15 (8 mid-cap)
+2-way pairs: 21
+3-way paths: 13
+4-way paths: 11
+5-way paths: 5
+Profit threshold: >€0.2 (all types)
+Scan interval: 30s
+======================================================================
+
+📊 Scan #1
+
+⏰ Scan - 18:54:17
+----------------------------------------------------------------------
+Scanning 2-way cross-DEX...
+  No opportunities found
+
+Scanning 3-way triangular...
+  No opportunities found
+
+Scanning 4-way multi-hop...
+  No opportunities found
+
+Scanning 5-way complex...
+  No opportunities found
+
+📊 Total: 0 2-way + 0 3-way + 0 4-way + 0 5-way = 0 opportunities
+
+💤 Waiting 30s...
+
+📊 Scan #2
+
+⏰ Scan - 19:12:38
+----------------------------------------------------------------------
+Scanning 2-way cross-DEX...
+  No opportunities found
+
+Scanning 3-way triangular...
+  No opportunities found
+
+Scanning 4-way multi-hop...
+  No opportunities found
+
+Scanning 5-way complex...
+  No opportunities found
+
+📊 Total: 0 2-way + 0 3-way + 0 4-way + 0 5-way = 0 opportunities
+
+💤 Waiting 30s...
+
+📊 Scan #3
+
+⏰ Scan - 19:30:52
+----------------------------------------------------------------------
+Scanning 2-way cross-DEX...
+  No opportunities found
+
+Scanning 3-way triangular...
+  No opportunities found
+
+Scanning 4-way multi-hop...
+  No opportunities found
+
+Scanning 5-way complex...
+  No opportunities found
+
+📊 Total: 0 2-way + 0 3-way + 0 4-way + 0 5-way = 0 opportunities
+
+💤 Waiting 30s...
+
+📊 Scan #4
+
+⏰ Scan - 19:48:47
+----------------------------------------------------------------------
+Scanning 2-way cross-DEX...
+  No opportunities found
+
+Scanning 3-way triangular...
+  No opportunities found
+
+Scanning 4-way multi-hop...
+  No opportunities found
+
+Scanning 5-way complex...
+  No opportunities found
+
+📊 Total: 0 2-way + 0 3-way + 0 4-way + 0 5-way = 0 opportunities
+
+💤 Waiting 30s...
+
+📊 Scan #5
+
+⏰ Scan - 20:06:48
+----------------------------------------------------------------------
+Scanning 2-way cross-DEX...
+  Found 1 opportunities:
+    💰 WBNB-RACA: Buy PancakeSwap_V2 → Sell ApeSwap
+       Profit: €613.21 (6.372%)
+/home/alessio/Projects/bsc/scripts/cross_dex_arbitrage_tracker.py:722: DeprecationWarning: The default datetime adapter is deprecated as of Python 3.12; see the sqlite3 documentation for suggested replacement recipes
+  cursor.execute('''
+
+Scanning 3-way triangular...
+  No opportunities found
+
+Scanning 4-way multi-hop...
+  No opportunities found
+
+Scanning 5-way complex...
+  No opportunities found
+
+📊 Total: 1 2-way + 0 3-way + 0 4-way + 0 5-way = 1 opportunities
+
+💤 Waiting 30s...
+
+📊 Scan #6
+
+⏰ Scan - 20:24:42
+----------------------------------------------------------------------
+Scanning 2-way cross-DEX...
+  Found 1 opportunities:
+    💰 WBNB-RACA: Buy PancakeSwap_V2 → Sell ApeSwap
+       Profit: €612.17 (6.362%)
+
+Scanning 3-way triangular...
+  No opportunities found
+
+Scanning 4-way multi-hop...
+  No opportunities found
+
+Scanning 5-way complex...
+  No opportunities found
+
+📊 Total: 1 2-way + 0 3-way + 0 4-way + 0 5-way = 1 opportunities
+
+💤 Waiting 30s...
+
+📊 Scan #7
+
+⏰ Scan - 20:42:43
+----------------------------------------------------------------------
+Scanning 2-way cross-DEX...
+  Found 1 opportunities:
+    💰 WBNB-RACA: Buy PancakeSwap_V2 → Sell ApeSwap
+       Profit: €473.55 (4.975%)
+
+Scanning 3-way triangular...
+  No opportunities found
+
+Scanning 4-way multi-hop...
+  No opportunities found
+
+Scanning 5-way complex...
+  No opportunities found
+
+📊 Total: 1 2-way + 0 3-way + 0 4-way + 0 5-way = 1 opportunities
+
+💤 Waiting 30s...
+
+📊 Scan #8
+
+⏰ Scan - 21:00:37
+----------------------------------------------------------------------
+Scanning 2-way cross-DEX...
+  Found 1 opportunities:
+    💰 WBNB-RACA: Buy PancakeSwap_V2 → Sell ApeSwap
+       Profit: €474.06 (4.981%)
+
+Scanning 3-way triangular...
+  No opportunities found
+
+Scanning 4-way multi-hop...
+  No opportunities found
+
+Scanning 5-way complex...
+  No opportunities found
+
+📊 Total: 1 2-way + 0 3-way + 0 4-way + 0 5-way = 1 opportunities
+
+💤 Waiting 30s...
+
+📊 Scan #9
+
+⏰ Scan - 21:18:42
+----------------------------------------------------------------------
+Scanning 2-way cross-DEX...
+  Found 1 opportunities:
+    💰 WBNB-RACA: Buy PancakeSwap_V2 → Sell ApeSwap
+       Profit: €467.52 (4.915%)
+
+Scanning 3-way triangular...
+  No opportunities found
+
+Scanning 4-way multi-hop...
+  No opportunities found
+
+Scanning 5-way complex...
+  No opportunities found
+
+📊 Total: 1 2-way + 0 3-way + 0 4-way + 0 5-way = 1 opportunities
+
+💤 Waiting 30s...
+
+📊 Scan #10
+
+⏰ Scan - 21:36:35
+----------------------------------------------------------------------
+Scanning 2-way cross-DEX...
+  Found 1 opportunities:
+    💰 WBNB-RACA: Buy PancakeSwap_V2 → Sell ApeSwap
+       Profit: €467.52 (4.915%)
+
+Scanning 3-way triangular...
+  No opportunities found
+
+Scanning 4-way multi-hop...
+  No opportunities found
+
+Scanning 5-way complex...
+  No opportunities found
+
+📊 Total: 1 2-way + 0 3-way + 0 4-way + 0 5-way = 1 opportunities
+
+💤 Waiting 30s...
+
+📊 Scan #11
+
+⏰ Scan - 21:54:34
+----------------------------------------------------------------------
+Scanning 2-way cross-DEX...
+  Found 1 opportunities:
+    💰 WBNB-RACA: Buy PancakeSwap_V2 → Sell ApeSwap
+       Profit: €467.52 (4.915%)
+
+Scanning 3-way triangular...
+  No opportunities found
+
+Scanning 4-way multi-hop...
+  No opportunities found
+
+Scanning 5-way complex...
+  No opportunities found
+
+📊 Total: 1 2-way + 0 3-way + 0 4-way + 0 5-way = 1 opportunities
+
+💤 Waiting 30s...
+
+📊 Scan #12
+
+⏰ Scan - 22:12:42
+----------------------------------------------------------------------
+Scanning 2-way cross-DEX...
+  Found 1 opportunities:
+    💰 WBNB-RACA: Buy PancakeSwap_V2 → Sell ApeSwap
+       Profit: €412.36 (4.364%)
+
+Scanning 3-way triangular...
+  No opportunities found
+
+Scanning 4-way multi-hop...
+  No opportunities found
+
+Scanning 5-way complex...
+  No opportunities found
+
+📊 Total: 1 2-way + 0 3-way + 0 4-way + 0 5-way = 1 opportunities
+
+💤 Waiting 30s...
+
+📊 Scan #13
+
+⏰ Scan - 22:30:28
+----------------------------------------------------------------------
+Scanning 2-way cross-DEX...
+  Found 1 opportunities:
+    💰 WBNB-RACA: Buy PancakeSwap_V2 → Sell ApeSwap
+       Profit: €374.77 (3.988%)
+
+Scanning 3-way triangular...
+  No opportunities found
+
+Scanning 4-way multi-hop...
+  No opportunities found
+
+Scanning 5-way complex...
+  No opportunities found
+
+📊 Total: 1 2-way + 0 3-way + 0 4-way + 0 5-way = 1 opportunities
+
+💤 Waiting 30s...
+
+📊 Scan #14
+
+⏰ Scan - 22:48:29
+----------------------------------------------------------------------
+Scanning 2-way cross-DEX...
+  Found 1 opportunities:
+    💰 WBNB-RACA: Buy PancakeSwap_V2 → Sell ApeSwap
+       Profit: €350.05 (3.741%)
+
+Scanning 3-way triangular...
+  No opportunities found
+
+Scanning 4-way multi-hop...
+  No opportunities found
+
+Scanning 5-way complex...
+  No opportunities found
+
+📊 Total: 1 2-way + 0 3-way + 0 4-way + 0 5-way = 1 opportunities
+
+💤 Waiting 30s...
+
+📊 Scan #15
+
+⏰ Scan - 23:06:19
+----------------------------------------------------------------------
+Scanning 2-way cross-DEX...
+  Found 1 opportunities:
+    💰 WBNB-RACA: Buy PancakeSwap_V2 → Sell ApeSwap
+       Profit: €342.06 (3.661%)
+
+Scanning 3-way triangular...
+  No opportunities found
+
+Scanning 4-way multi-hop...
+  No opportunities found
+
+Scanning 5-way complex...
+  No opportunities found
+
+📊 Total: 1 2-way + 0 3-way + 0 4-way + 0 5-way = 1 opportunities
+
+💤 Waiting 30s...
+
+📊 Scan #16
+
+⏰ Scan - 23:24:17
+----------------------------------------------------------------------
+Scanning 2-way cross-DEX...
+  Found 1 opportunities:
+    💰 WBNB-RACA: Buy PancakeSwap_V2 → Sell ApeSwap
+       Profit: €342.06 (3.661%)
+
+Scanning 3-way triangular...
+  No opportunities found
+
+Scanning 4-way multi-hop...
+  No opportunities found
+
+Scanning 5-way complex...
+  No opportunities found
+
+📊 Total: 1 2-way + 0 3-way + 0 4-way + 0 5-way = 1 opportunities
+
+💤 Waiting 30s...
+
+📊 Scan #17
+
+⏰ Scan - 23:42:10
+----------------------------------------------------------------------
+Scanning 2-way cross-DEX...
+  Found 1 opportunities:
+    💰 WBNB-RACA: Buy PancakeSwap_V2 → Sell ApeSwap
+       Profit: €370.34 (3.943%)
+
+Scanning 3-way triangular...
+  No opportunities found
+
+Scanning 4-way multi-hop...
+  No opportunities found
+
+Scanning 5-way complex...
+  No opportunities found
+
+📊 Total: 1 2-way + 0 3-way + 0 4-way + 0 5-way = 1 opportunities
+
+💤 Waiting 30s...
+
+📊 Scan #18
+
+⏰ Scan - 23:59:57
+----------------------------------------------------------------------
+Scanning 2-way cross-DEX...
+  Found 1 opportunities:
+    💰 WBNB-RACA: Buy PancakeSwap_V2 → Sell ApeSwap
+       Profit: €366.78 (3.908%)
+
+Scanning 3-way triangular...
+  No opportunities found
+
+Scanning 4-way multi-hop...
+  No opportunities found
+
+Scanning 5-way complex...
+  No opportunities found
+
+📊 Total: 1 2-way + 0 3-way + 0 4-way + 0 5-way = 1 opportunities
+
+💤 Waiting 30s...
+
+📊 Scan #19
+
+⏰ Scan - 00:17:44
+----------------------------------------------------------------------
+Scanning 2-way cross-DEX...
+  Found 1 opportunities:
+    💰 WBNB-RACA: Buy PancakeSwap_V2 → Sell ApeSwap
+       Profit: €339.16 (3.632%)
+
+Scanning 3-way triangular...
+  No opportunities found
+
+Scanning 4-way multi-hop...
+  No opportunities found
+
+Scanning 5-way complex...
+  No opportunities found
+
+📊 Total: 1 2-way + 0 3-way + 0 4-way + 0 5-way = 1 opportunities
+
+💤 Waiting 30s...
+
+📊 Scan #20
+
+⏰ Scan - 00:35:42
+----------------------------------------------------------------------
+Scanning 2-way cross-DEX...
+  Found 1 opportunities:
+    💰 WBNB-RACA: Buy PancakeSwap_V2 → Sell ApeSwap
+       Profit: €372.96 (3.970%)
+
+Scanning 3-way triangular...
+  No opportunities found
+
+Scanning 4-way multi-hop...
+  No opportunities found
+
+Scanning 5-way complex...
+  No opportunities found
+
+📊 Total: 1 2-way + 0 3-way + 0 4-way + 0 5-way = 1 opportunities
+
+💤 Waiting 30s...
+
+📊 Scan #21
+
+⏰ Scan - 00:53:25
+----------------------------------------------------------------------
+Scanning 2-way cross-DEX...
+  Found 1 opportunities:
+    💰 WBNB-RACA: Buy PancakeSwap_V2 → Sell ApeSwap
+       Profit: €397.61 (4.216%)
+❌ Error during scan: database or disk is full
+
+💤 Waiting 30s...
+
+📊 Scan #22
+
+⏰ Scan - 00:54:27
+----------------------------------------------------------------------
+Scanning 2-way cross-DEX...
+  Found 1 opportunities:
+    💰 WBNB-RACA: Buy PancakeSwap_V2 → Sell ApeSwap
+       Profit: €397.61 (4.216%)
+❌ Error during scan: database or disk is full
+
+💤 Waiting 30s...
+
+📊 Scan #23
+
+⏰ Scan - 00:55:29
+----------------------------------------------------------------------
+Scanning 2-way cross-DEX...
+  Found 1 opportunities:
+    💰 WBNB-RACA: Buy PancakeSwap_V2 → Sell ApeSwap
+       Profit: €397.61 (4.216%)
+❌ Error during scan: database or disk is full
+
+💤 Waiting 30s...
+
+📊 Scan #24
+
+⏰ Scan - 00:56:30
+----------------------------------------------------------------------
+Scanning 2-way cross-DEX...
+  Found 1 opportunities:
+    💰 WBNB-RACA: Buy PancakeSwap_V2 → Sell ApeSwap
+       Profit: €397.61 (4.216%)
+❌ Error during scan: database or disk is full
+
+💤 Waiting 30s...
+
+📊 Scan #25
+
+⏰ Scan - 00:57:32
+----------------------------------------------------------------------
+Scanning 2-way cross-DEX...
+  Found 1 opportunities:
+    💰 WBNB-RACA: Buy PancakeSwap_V2 → Sell ApeSwap
+       Profit: €397.61 (4.216%)
+❌ Error during scan: database or disk is full
+
+💤 Waiting 30s...
+
+📊 Scan #26
+
+⏰ Scan - 00:58:34
+----------------------------------------------------------------------
+Scanning 2-way cross-DEX...
+  Found 1 opportunities:
+    💰 WBNB-RACA: Buy PancakeSwap_V2 → Sell ApeSwap
+       Profit

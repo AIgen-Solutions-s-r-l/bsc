@@ -1,0 +1,500 @@
+✅ Database initialized: arbitrage-data/arbitrage.db
+🚀 Enhanced Tracker Started - Block: 68286029
+
+============================================================
+🔥 FIXED ARBITRAGE MONITORING SYSTEM
+============================================================
+
+✅ NOW TRACKING REAL ARBITRAGE ONLY:
+  • Requires 2+ Swap events in single transaction
+  • Proper Swap event signature detection
+  • Multi-hop arbitrage paths
+  • Real arbitrageur competition
+
+❌ NO LONGER COUNTING:
+  • Regular single-swap trades
+  • Normal DEX users
+
+💾 Database: arbitrage-data/arbitrage.db
+🌐 Dashboard: Run 'python3 scripts/dashboard.py' to view
+
+
+⏰ Scan #1 - 15:06:57
+
+📦 New Block: 68286030 (checking 1 blocks)
+
+⏰ Scan #2 - 15:07:58
+
+📦 New Block: 68286113 (checking 83 blocks)
+
+⏰ Scan #3 - 15:09:44
+
+📦 New Block: 68286254 (checking 141 blocks)
+
+⏰ Scan #4 - 15:11:56
+
+📦 New Block: 68286429 (checking 175 blocks)
+
+⏰ Scan #5 - 15:14:26
+
+📦 New Block: 68286630 (checking 201 blocks)
+
+⏰ Scan #6 - 15:17:10
+
+📦 New Block: 68286848 (checking 218 blocks)
+
+⏰ Scan #7 - 15:20:02
+
+📦 New Block: 68287077 (checking 229 blocks)
+
+⏰ Scan #8 - 15:22:58
+
+📦 New Block: 68287312 (checking 235 blocks)
+
+⏰ Scan #9 - 15:26:05
+
+📦 New Block: 68287561 (checking 249 blocks)
+
+⏰ Scan #10 - 15:29:17
+
+📦 New Block: 68287818 (checking 257 blocks)
+
+⏰ Scan #11 - 15:32:26
+
+📦 New Block: 68288069 (checking 251 blocks)
+
+⏰ Scan #12 - 15:35:34
+
+📦 New Block: 68288320 (checking 251 blocks)
+
+⏰ Scan #13 - 15:38:40
+
+📦 New Block: 68288567 (checking 247 blocks)
+
+⏰ Scan #14 - 15:41:50
+
+📦 New Block: 68288821 (checking 254 blocks)
+
+⏰ Scan #15 - 15:45:01
+
+📦 New Block: 68289077 (checking 256 blocks)
+
+⏰ Scan #16 - 15:48:28
+
+📦 New Block: 68289352 (checking 275 blocks)
+
+⏰ Scan #17 - 15:51:51
+
+📦 New Block: 68289623 (checking 271 blocks)
+
+⏰ Scan #18 - 15:55:39
+
+📦 New Block: 68289926 (checking 303 blocks)
+
+⏰ Scan #19 - 15:59:10
+
+📦 New Block: 68290208 (checking 282 blocks)
+
+⏰ Scan #20 - 16:02:32
+
+📦 New Block: 68290478 (checking 270 blocks)
+
+⏰ Scan #21 - 16:05:55
+
+📦 New Block: 68290748 (checking 270 blocks)
+
+⏰ Scan #22 - 16:09:15
+
+📦 New Block: 68291014 (checking 266 blocks)
+
+⏰ Scan #23 - 16:12:34
+
+📦 New Block: 68291280 (checking 266 blocks)
+
+⏰ Scan #24 - 16:16:02
+
+📦 New Block: 68291557 (checking 277 blocks)
+
+⏰ Scan #25 - 16:19:33
+
+📦 New Block: 68291839 (checking 282 blocks)
+
+⏰ Scan #26 - 16:23:09
+
+📦 New Block: 68292126 (checking 287 blocks)
+
+⏰ Scan #27 - 16:26:41
+
+📦 New Block: 68292409 (checking 283 blocks)
+
+⏰ Scan #28 - 16:30:15
+
+📦 New Block: 68292695 (checking 286 blocks)
+
+⏰ Scan #29 - 16:33:38
+
+📦 New Block: 68292965 (checking 270 blocks)
+
+⏰ Scan #30 - 16:36:53
+
+📦 New Block: 68293225 (checking 260 blocks)
+
+⏰ Scan #31 - 16:39:57
+
+📦 New Block: 68293471 (checking 246 blocks)
+
+⏰ Scan #32 - 16:42:56
+
+📦 New Block: 68293709 (checking 238 blocks)
+
+⏰ Scan #33 - 16:46:15
+
+📦 New Block: 68293974 (checking 265 blocks)
+
+⏰ Scan #34 - 16:49:50
+
+📦 New Block: 68294260 (checking 286 blocks)
+
+⏰ Scan #35 - 16:53:06
+
+📦 New Block: 68294523 (checking 263 blocks)
+
+⏰ Scan #36 - 16:56:22
+
+📦 New Block: 68294784 (checking 261 blocks)
+
+⏰ Scan #37 - 16:59:35
+
+📦 New Block: 68295042 (checking 258 blocks)
+
+⏰ Scan #38 - 17:02:51
+
+📦 New Block: 68295303 (checking 261 blocks)
+
+⏰ Scan #39 - 17:06:13
+
+📦 New Block: 68295571 (checking 268 blocks)
+
+⏰ Scan #40 - 17:09:29
+
+📦 New Block: 68295833 (checking 262 blocks)
+
+⏰ Scan #41 - 17:12:49
+
+📦 New Block: 68296100 (checking 267 blocks)
+
+⏰ Scan #42 - 17:16:05
+
+📦 New Block: 68296361 (checking 261 blocks)
+
+⏰ Scan #43 - 17:19:25
+
+📦 New Block: 68296629 (checking 268 blocks)
+
+⏰ Scan #44 - 17:22:47
+
+📦 New Block: 68296897 (checking 268 blocks)
+
+⏰ Scan #45 - 17:26:01
+
+📦 New Block: 68297156 (checking 259 blocks)
+
+⏰ Scan #46 - 17:29:06
+
+📦 New Block: 68297402 (checking 246 blocks)
+
+⏰ Scan #47 - 17:32:06
+
+📦 New Block: 68297642 (checking 240 blocks)
+
+⏰ Scan #48 - 17:34:59
+
+📦 New Block: 68297874 (checking 232 blocks)
+
+⏰ Scan #49 - 17:37:54
+
+📦 New Block: 68298107 (checking 233 blocks)
+
+⏰ Scan #50 - 17:40:43
+
+📦 New Block: 68298332 (checking 225 blocks)
+
+⏰ Scan #51 - 17:43:31
+
+📦 New Block: 68298556 (checking 224 blocks)
+
+⏰ Scan #52 - 17:46:22
+
+📦 New Block: 68298784 (checking 228 blocks)
+
+⏰ Scan #53 - 17:49:15
+
+📦 New Block: 68299015 (checking 231 blocks)
+
+⏰ Scan #54 - 17:52:07
+
+📦 New Block: 68299244 (checking 229 blocks)
+
+⏰ Scan #55 - 17:55:01
+
+📦 New Block: 68299475 (checking 231 blocks)
+
+⏰ Scan #56 - 17:57:50
+
+📦 New Block: 68299701 (checking 226 blocks)
+
+⏰ Scan #57 - 18:00:35
+
+📦 New Block: 68299921 (checking 220 blocks)
+
+⏰ Scan #58 - 18:03:22
+
+📦 New Block: 68300144 (checking 223 blocks)
+
+⏰ Scan #59 - 18:06:15
+
+📦 New Block: 68300374 (checking 230 blocks)
+
+⏰ Scan #60 - 18:09:12
+
+📦 New Block: 68300610 (checking 236 blocks)
+
+⏰ Scan #61 - 18:12:09
+
+📦 New Block: 68300847 (checking 237 blocks)
+
+⏰ Scan #62 - 18:15:01
+
+📦 New Block: 68301076 (checking 229 blocks)
+
+⏰ Scan #63 - 18:17:47
+
+📦 New Block: 68301297 (checking 221 blocks)
+
+⏰ Scan #64 - 18:20:26
+
+📦 New Block: 68301510 (checking 213 blocks)
+
+⏰ Scan #65 - 18:22:58
+
+📦 New Block: 68301711 (checking 201 blocks)
+
+⏰ Scan #66 - 18:25:30
+
+📦 New Block: 68301913 (checking 202 blocks)
+
+⏰ Scan #67 - 18:28:06
+
+📦 New Block: 68302122 (checking 209 blocks)
+
+⏰ Scan #68 - 18:30:41
+
+📦 New Block: 68302328 (checking 206 blocks)
+
+⏰ Scan #69 - 18:33:12
+
+📦 New Block: 68302530 (checking 202 blocks)
+
+⏰ Scan #70 - 18:35:43
+
+📦 New Block: 68302731 (checking 201 blocks)
+
+⏰ Scan #71 - 18:38:10
+
+📦 New Block: 68302927 (checking 196 blocks)
+
+⏰ Scan #72 - 18:40:35
+
+📦 New Block: 68303120 (checking 193 blocks)
+
+⏰ Scan #73 - 18:42:58
+
+📦 New Block: 68303311 (checking 191 blocks)
+
+⏰ Scan #74 - 18:45:20
+
+📦 New Block: 68303500 (checking 189 blocks)
+
+⏰ Scan #75 - 18:47:45
+
+📦 New Block: 68303694 (checking 194 blocks)
+
+⏰ Scan #76 - 18:50:15
+
+📦 New Block: 68303894 (checking 200 blocks)
+
+⏰ Scan #77 - 18:52:46
+
+📦 New Block: 68304095 (checking 201 blocks)
+
+⏰ Scan #78 - 18:55:24
+
+📦 New Block: 68304306 (checking 211 blocks)
+
+⏰ Scan #79 - 18:58:06
+
+📦 New Block: 68304521 (checking 215 blocks)
+
+⏰ Scan #80 - 19:00:43
+
+📦 New Block: 68304731 (checking 210 blocks)
+
+⏰ Scan #81 - 19:03:21
+
+📦 New Block: 68304942 (checking 211 blocks)
+
+⏰ Scan #82 - 19:06:08
+
+📦 New Block: 68305165 (checking 223 blocks)
+
+⏰ Scan #83 - 19:08:52
+
+📦 New Block: 68305383 (checking 218 blocks)
+
+⏰ Scan #84 - 19:11:32
+
+📦 New Block: 68305596 (checking 213 blocks)
+
+⏰ Scan #85 - 19:14:08
+
+📦 New Block: 68305804 (checking 208 blocks)
+
+⏰ Scan #86 - 19:16:41
+
+📦 New Block: 68306008 (checking 204 blocks)
+
+⏰ Scan #87 - 19:19:12
+
+📦 New Block: 68306210 (checking 202 blocks)
+
+⏰ Scan #88 - 19:21:39
+
+📦 New Block: 68306406 (checking 196 blocks)
+
+⏰ Scan #89 - 19:24:11
+
+📦 New Block: 68306609 (checking 203 blocks)
+
+⏰ Scan #90 - 19:26:44
+
+📦 New Block: 68306812 (checking 203 blocks)
+
+⏰ Scan #91 - 19:29:15
+
+📦 New Block: 68307014 (checking 202 blocks)
+
+⏰ Scan #92 - 19:31:45
+
+📦 New Block: 68307214 (checking 200 blocks)
+
+⏰ Scan #93 - 19:34:18
+
+📦 New Block: 68307418 (checking 204 blocks)
+
+⏰ Scan #94 - 19:36:50
+
+📦 New Block: 68307621 (checking 203 blocks)
+
+⏰ Scan #95 - 19:39:28
+
+📦 New Block: 68307830 (checking 209 blocks)
+
+⏰ Scan #96 - 19:42:11
+
+📦 New Block: 68308048 (checking 218 blocks)
+
+⏰ Scan #97 - 19:44:58
+
+📦 New Block: 68308271 (checking 223 blocks)
+
+⏰ Scan #98 - 19:47:40
+
+📦 New Block: 68308487 (checking 216 blocks)
+
+⏰ Scan #99 - 19:50:13
+
+📦 New Block: 68308691 (checking 204 blocks)
+
+⏰ Scan #100 - 19:52:42
+
+📦 New Block: 68308890 (checking 199 blocks)
+
+⏰ Scan #101 - 19:55:11
+
+📦 New Block: 68309089 (checking 199 blocks)
+
+⏰ Scan #102 - 19:57:39
+
+📦 New Block: 68309285 (checking 196 blocks)
+
+⏰ Scan #103 - 20:00:04
+
+📦 New Block: 68309479 (checking 194 blocks)
+
+⏰ Scan #104 - 20:02:27
+
+📦 New Block: 68309670 (checking 191 blocks)
+
+⏰ Scan #105 - 20:04:56
+
+📦 New Block: 68309868 (checking 198 blocks)
+
+⏰ Scan #106 - 20:07:23
+
+📦 New Block: 68310064 (checking 196 blocks)
+
+⏰ Scan #107 - 20:09:49
+
+📦 New Block: 68310259 (checking 195 blocks)
+
+⏰ Scan #108 - 20:12:14
+
+📦 New Block: 68310453 (checking 194 blocks)
+
+⏰ Scan #109 - 20:14:39
+
+📦 New Block: 68310646 (checking 193 blocks)
+
+⏰ Scan #110 - 20:17:02
+
+📦 New Block: 68310837 (checking 191 blocks)
+
+⏰ Scan #111 - 20:19:24
+
+📦 New Block: 68311025 (checking 188 blocks)
+
+⏰ Scan #112 - 20:21:46
+
+📦 New Block: 68311215 (checking 190 blocks)
+
+⏰ Scan #113 - 20:24:13
+
+📦 New Block: 68311410 (checking 195 blocks)
+
+⏰ Scan #114 - 20:26:37
+
+📦 New Block: 68311603 (checking 193 blocks)
+
+⏰ Scan #115 - 20:29:01
+
+📦 New Block: 68311795 (checking 192 blocks)
+
+⏰ Scan #116 - 20:31:24
+
+📦 New Block: 68311985 (checking 190 blocks)
+
+⏰ Scan #117 - 20:33:47
+
+📦 New Block: 68312177 (checking 192 blocks)
+
+⏰ Scan #118 - 20:36:06
+
+📦 New Block: 68312362 (checking 185 blocks)
+
+⏰ Scan #119 - 20:38:23
+
+📦 New Block: 68312544 (checking 182 blocks)
+
+⏰ Scan #120 - 20:40:43
+
+📦 New Block: 68312731 (checking 187 blocks)

@@ -1,0 +1,30 @@
+╔══════════════════════════════════════════════════════════════╗
+║           DASHBOARD ACCESS INFORMATION                       ║
+╚══════════════════════════════════════════════════════════════╝
+
+🌐 EXTERNAL URL (from anywhere):
+   http://37.27.65.57:3000
+
+🏠 LOCAL URL (from this server):
+   http://localhost:3000
+
+📊 What You Can See:
+   • Real-time BSC arbitrage statistics
+   • 15,000+ transactions analyzed
+   • 3,000+ arbitrageur profiles
+   • Pool imbalance opportunities
+   • Competition metrics
+   • Gas price trends
+
+🔄 Auto-Refresh:
+   Dashboard updates every 30 seconds automatically
+
+🛑 To Stop Dashboard:
+   kill $(cat arbitrage-data/dashboard.pid)
+
+🔒 To Close External Access:
+   sudo ufw delete allow 3000/tcp
+
+📅 Created: 2025-11-15
+🎯 Purpose: Monitor BSC arbitrage for 3-5 days before chain migration
+

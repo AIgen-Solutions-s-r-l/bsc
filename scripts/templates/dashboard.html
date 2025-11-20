@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arbitrage Monitoring Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0e27;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: #1a1f3a;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #2a2f4a;
+            transition: transform 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: #667eea;
+        }
+
+        .stat-label {
+            color: #8b92b0;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-change {
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .positive { color: #4ade80; }
+        .negative { color: #f87171; }
+
+        .section {
+            background: #1a1f3a;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #2a2f4a;
+            margin-bottom: 30px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #2a2f4a;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            color: #667eea;
+        }
+
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .filter-group label {
+            font-size: 0.9em;
+            color: #8b92b0;
+        }
+
+        input, select, button {
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid #2a2f4a;
+            background: #0a0e27;
+            color: #e0e0e0;
+            font-size: 0.95em;
+        }
+
+        button {
+            background: #667eea;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #764ba2;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #0a0e27;
+            padding: 15px;
+            text-align: left;
+            color: #667eea;
+            font-weight: bold;
+            border-bottom: 2px solid #2a2f4a;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #2a2f4a;
+        }
+
+        tr:hover {
+            background: #0a0e27;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+
+        .badge-success { background: #4ade80; color: #0a0e27; }
+        .badge-warning { background: #fbbf24; color: #0a0e27; }
+        .badge-danger { background: #f87171; color: #fff; }
+        .badge-info { background: #60a5fa; color: #0a0e27; }
+
+        .address {
+            font-family: monospace;
+            font-size: 0.9em;
+            color: #60a5fa;
+        }
+
+        .clickable {
+            cursor: pointer;
+            color: #667eea;
+            text-decoration: underline;
+        }
+
+        .clickable:hover {
+            color: #764ba2;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #8b92b0;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            background: #0a0e27;
+            border: 1px solid #2a2f4a;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab.active {
+            background: #667eea;
+            border-color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .chart-container {
+            height: 300px;
+            margin: 20px 0;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #8b92b0;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Arbitrage Monitoring Dashboard</h1>
+            <div class="subtitle">Real-time BSC arbitrage opportunity tracking and analysis</div>
+        </header>
+
+        <!-- Statistics Overview -->
+        <div class="stats-grid" id="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Opportunities</div>
+                <div class="stat-value" id="total-opportunities">-</div>
+                <div class="stat-change"><span id="last-hour-opps">-</span> in last hour</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Small Opportunities (10K-100K)</div>
+                <div class="stat-value" id="small-opportunities">-</div>
+                <div class="stat-change">Avg: $<span id="small-avg">-</span></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total Value Detected</div>
+                <div class="stat-value">$<span id="total-value">-</span></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Arbitrage Transactions</div>
+                <div class="stat-value" id="total-transactions">-</div>
+                <div class="stat-change"><span id="last-hour-txs">-</span> in last hour</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Unique Arbitrageurs</div>
+                <div class="stat-value" id="total-arbitrageurs">-</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Capture Rate</div>
+                <div class="stat-value"><span id="capture-rate">-</span>%</div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('opportunities')">📊 Opportunities</div>
+            <div class="tab" onclick="switchTab('transactions')">💰 Transactions</div>
+            <div class="tab" onclick="switchTab('arbitrageurs')">👤 Arbitrageurs</div>
+            <div class="tab" onclick="switchTab('pools')">🏊 Pool Stats</div>
+        </div>
+
+        <!-- Opportunities Tab -->
+        <div id="opportunities-tab" class="tab-content active">
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-title">Recent Opportunities</div>
+                    <button onclick="loadOpportunities()">🔄 Refresh</button>
+                </div>
+
+                <div class="filters">
+                    <div class="filter-group">
+                        <label>Min Profit ($)</label>
+                        <input type="number" id="min-profit" value="10000" placeholder="Min profit">
+                    </div>
+                    <div class="filter-group">
+                        <label>Max Profit ($)</label>
+                        <input type="number" id="max-profit" value="100000" placeholder="Max profit">
+                    </div>
+                    <div class="filter-group">
+                        <label>Limit</label>
+                        <select id="opp-limit">
+                            <option value="50">50</option>
+                            <option value="100" selected>100</option>
+                            <option value="500">500</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>&nbsp;</label>
+                        <button onclick="loadOpportunities()">Apply Filters</button>
+                    </div>
+                </div>
+
+                <div id="opportunities-table"></div>
+            </div>
+        </div>
+
+        <!-- Transactions Tab -->
+        <div id="transactions-tab" class="tab-content">
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-title">Arbitrage Transactions</div>
+                    <button onclick="loadTransactions()">🔄 Refresh</button>
+                </div>
+
+                <div id="transactions-table"></div>
+            </div>
+        </div>
+
+        <!-- Arbitrageurs Tab -->
+        <div id="arbitrageurs-tab" class="tab-content">
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-title">Arbitrageur Profiles</div>
+                    <button onclick="loadArbitrageurs()">🔄 Refresh</button>
+                </div>
+
+                <div id="arbitrageurs-table"></div>
+            </div>
+        </div>
+
+        <!-- Pool Stats Tab -->
+        <div id="pools-tab" class="tab-content">
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-title">Pool Statistics</div>
+                    <button onclick="loadPoolStats()">🔄 Refresh</button>
+                </div>
+
+                <div id="pools-table"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-refresh every 30 seconds
+        let autoRefresh = setInterval(() => {
+            loadStats();
+            const activeTab = document.querySelector('.tab.active').textContent;
+            if (activeTab.includes('Opportunities')) loadOpportunities();
+            if (activeTab.includes('Transactions')) loadTransactions();
+            if (activeTab.includes('Arbitrageurs')) loadArbitrageurs();
+            if (activeTab.includes('Pool')) loadPoolStats();
+        }, 30000);
+
+        function switchTab(tab) {
+            // Update tabs
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Update content
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.getElementById(tab + '-tab').classList.add('active');
+
+            // Load data for tab
+            if (tab === 'opportunities') loadOpportunities();
+            if (tab === 'transactions') loadTransactions();
+            if (tab === 'arbitrageurs') loadArbitrageurs();
+            if (tab === 'pools') loadPoolStats();
+        }
+
+        function formatNumber(num) {
+            return new Intl.NumberFormat('en-US').format(num);
+        }
+
+        function formatMoney(num) {
+            return '$' + formatNumber(Math.round(num));
+        }
+
+        function formatAddress(addr) {
+            return addr.substring(0, 10) + '...' + addr.substring(addr.length - 8);
+        }
+
+        async function loadStats() {
+            try {
+                const response = await fetch('/api/stats');
+                const stats = await response.json();
+
+                document.getElementById('total-opportunities').textContent = formatNumber(stats.total_opportunities || 0);
+                document.getElementById('small-opportunities').textContent = formatNumber(stats.small_opportunities_count || 0);
+                document.getElementById('small-avg').textContent = formatNumber(Math.round(stats.small_opportunities_avg || 0));
+                document.getElementById('total-value').textContent = formatNumber(Math.round(stats.total_value_detected || 0));
+                document.getElementById('total-transactions').textContent = formatNumber(stats.total_transactions || 0);
+                document.getElementById('total-arbitrageurs').textContent = formatNumber(stats.total_arbitrageurs || 0);
+                document.getElementById('last-hour-opps').textContent = formatNumber(stats.last_hour_opportunities || 0);
+                document.getElementById('last-hour-txs').textContent = formatNumber(stats.last_hour_transactions || 0);
+
+                const captureRate = stats.total_opportunities > 0
+                    ? ((stats.captured_opportunities / stats.total_opportunities) * 100).toFixed(1)
+                    : 0;
+                document.getElementById('capture-rate').textContent = captureRate;
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+
+        async function loadOpportunities() {
+            const minProfit = document.getElementById('min-profit').value || 0;
+            const maxProfit = document.getElementById('max-profit').value || 999999999;
+            const limit = document.getElementById('opp-limit').value;
+
+            const container = document.getElementById('opportunities-table');
+            container.innerHTML = '<div class="loading">Loading opportunities...</div>';
+
+            try {
+                const response = await fetch(`/api/opportunities?limit=${limit}&min_profit=${minProfit}&max_profit=${maxProfit}`);
+                const opportunities = await response.json();
+
+                if (opportunities.length === 0) {
+                    container.innerHTML = '<div class="no-data">No opportunities found matching filters</div>';
+                    return;
+                }
+
+                let html = '<table><thead><tr>';
+                html += '<th>Time</th>';
+                html += '<th>Pool</th>';
+                html += '<th>Imbalance</th>';
+                html += '<th>Est. Profit</th>';
+                html += '<th>Status</th>';
+                html += '<th>Captured By</th>';
+                html += '</tr></thead><tbody>';
+
+                opportunities.forEach(opp => {
+                    const status = opp.was_captured
+                        ? '<span class="badge badge-success">Captured</span>'
+                        : '<span class="badge badge-warning">Available</span>';
+
+                    const capturedBy = opp.captured_by
+                        ? `<span class="address clickable" onclick="viewArbitrageur('${opp.captured_by}')">${formatAddress(opp.captured_by)}</span>`
+                        : '-';
+
+                    html += '<tr>';
+                    html += `<td>${opp.timestamp_human || opp.timestamp}</td>`;
+                    html += `<td><strong>${opp.pool_name}</strong></td>`;
+                    html += `<td>${opp.imbalance_pct.toFixed(2)}%</td>`;
+                    html += `<td><strong>${formatMoney(opp.estimated_profit_usd)}</strong></td>`;
+                    html += `<td>${status}</td>`;
+                    html += `<td>${capturedBy}</td>`;
+                    html += '</tr>';
+                });
+
+                html += '</tbody></table>';
+                container.innerHTML = html;
+            } catch (error) {
+                console.error('Error loading opportunities:', error);
+                container.innerHTML = '<div class="no-data">Error loading opportunities</div>';
+            }
+        }
+
+        async function loadTransactions() {
+            const container = document.getElementById('transactions-table');
+            container.innerHTML = '<div class="loading">Loading transactions...</div>';
+
+            try {
+                const response = await fetch('/api/transactions?limit=100');
+                const transactions = await response.json();
+
+                if (transactions.length === 0) {
+                    container.innerHTML = '<div class="no-data">No transactions found</div>';
+                    return;
+                }
+
+                let html = '<table><thead><tr>';
+                html += '<th>Time</th>';
+                html += '<th>From Address</th>';
+                html += '<th>Swaps</th>';
+                html += '<th>Gas Price</th>';
+                html += '<th>Est. Profit</th>';
+                html += '<th>Strategy</th>';
+                html += '</tr></thead><tbody>';
+
+                transactions.forEach(tx => {
+                    html += '<tr>';
+                    html += `<td>${tx.timestamp_human || tx.timestamp}</td>`;
+                    html += `<td><span class="address clickable" onclick="viewArbitrageur('${tx.from_address}')">${formatAddress(tx.from_address)}</span></td>`;
+                    html += `<td>${tx.swap_count || '-'}</td>`;
+                    html += `<td>${(tx.gas_price_gwei || 0).toFixed(2)} Gwei</td>`;
+                    html += `<td><strong>${formatMoney(tx.estimated_profit_usd || 0)}</strong></td>`;
+                    html += `<td><span class="badge badge-info">${tx.strategy_type || 'unknown'}</span></td>`;
+                    html += '</tr>';
+                });
+
+                html += '</tbody></table>';
+                container.innerHTML = html;
+            } catch (error) {
+                console.error('Error loading transactions:', error);
+                container.innerHTML = '<div class="no-data">Error loading transactions</div>';
+            }
+        }
+
+        async function loadArbitrageurs() {
+            const container = document.getElementById('arbitrageurs-table');
+            container.innerHTML = '<div class="loading">Loading arbitrageurs...</div>';
+
+            try {
+                const response = await fetch('/api/arbitrageurs');
+                const arbitrageurs = await response.json();
+
+                if (arbitrageurs.length === 0) {
+                    container.innerHTML = '<div class="no-data">No arbitrageurs found</div>';
+                    return;
+                }
+
+                let html = '<table><thead><tr>';
+                html += '<th>Address</th>';
+                html += '<th>Total Trades</th>';
+                html += '<th>Win Rate</th>';
+                html += '<th>Total Profit</th>';
+                html += '<th>Avg Profit</th>';
+                html += '<th>Avg Gas</th>';
+                html += '<th>First Seen</th>';
+                html += '</tr></thead><tbody>';
+
+                arbitrageurs.forEach(arb => {
+                    const winRate = ((arb.win_rate || 0) * 100).toFixed(1);
+                    const winClass = arb.win_rate > 0.8 ? 'positive' : arb.win_rate > 0.5 ? '' : 'negative';
+
+                    html += '<tr>';
+                    html += `<td><span class="address clickable" onclick="viewArbitrageur('${arb.address}')">${formatAddress(arb.address)}</span></td>`;
+                    html += `<td>${arb.total_trades || 0}</td>`;
+                    html += `<td class="${winClass}"><strong>${winRate}%</strong></td>`;
+                    html += `<td><strong>${formatMoney(arb.total_profit_usd || 0)}</strong></td>`;
+                    html += `<td>${formatMoney(arb.avg_profit_usd || 0)}</td>`;
+                    html += `<td>${(arb.avg_gas_price_gwei || 0).toFixed(2)} Gwei</td>`;
+                    html += `<td>${arb.first_seen_human || arb.first_seen}</td>`;
+                    html += '</tr>';
+                });
+
+                html += '</tbody></table>';
+                container.innerHTML = html;
+            } catch (error) {
+                console.error('Error loading arbitrageurs:', error);
+                container.innerHTML = '<div class="no-data">Error loading arbitrageurs</div>';
+            }
+        }
+
+        async function loadPoolStats() {
+            const container = document.getElementById('pools-table');
+            container.innerHTML = '<div class="loading">Loading pool stats...</div>';
+
+            try {
+                const response = await fetch('/api/pool_stats');
+                const pools = await response.json();
+
+                if (pools.length === 0) {
+                    container.innerHTML = '<div class="no-data">No pool data available</div>';
+                    return;
+                }
+
+                let html = '<table><thead><tr>';
+                html += '<th>Pool</th>';
+                html += '<th>Total Opportunities</th>';
+                html += '<th>Captured</th>';
+                html += '<th>Avg Imbalance</th>';
+                html += '<th>Avg Profit</th>';
+                html += '<th>Min/Max Profit</th>';
+                html += '<th>Last Seen</th>';
+                html += '</tr></thead><tbody>';
+
+                pools.forEach(pool => {
+                    const captureRate = pool.total_opportunities > 0
+                        ? ((pool.total_captured / pool.total_opportunities) * 100).toFixed(1)
+                        : 0;
+
+                    html += '<tr>';
+                    html += `<td><strong>${pool.pool_name}</strong></td>`;
+                    html += `<td>${pool.total_opportunities}</td>`;
+                    html += `<td>${pool.total_captured} (${captureRate}%)</td>`;
+                    html += `<td>${(pool.avg_imbalance_pct || 0).toFixed(2)}%</td>`;
+                    html += `<td>${formatMoney(pool.avg_profit_usd || 0)}</td>`;
+                    html += `<td>${formatMoney(pool.min_profit_usd || 0)} - ${formatMoney(pool.max_profit_usd || 0)}</td>`;
+                    html += `<td>${pool.last_opportunity || '-'}</td>`;
+                    html += '</tr>';
+                });
+
+                html += '</tbody></table>';
+                container.innerHTML = html;
+            } catch (error) {
+                console.error('Error loading pool stats:', error);
+                container.innerHTML = '<div class="no-data">Error loading pool stats</div>';
+            }
+        }
+
+        function viewArbitrageur(address) {
+            alert('Arbitrageur detail view:\n' + address + '\n\n(Feature coming in next update)');
+        }
+
+        // Initial load
+        loadStats();
+        loadOpportunities();
+    </script>
+</body>
+</html>
