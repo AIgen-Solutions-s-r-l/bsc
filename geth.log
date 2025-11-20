@@ -1,0 +1,12 @@
+INFO [11-14|17:35:12.663] ApplyDefaultMinerConfig                  DelayLeftOver=25ms
+INFO [11-14|17:35:12.663] ApplyDefaultMinerConfig                  MaxWaitProposalInSecs=45
+INFO [11-14|17:35:12.663] ApplyDefaultMinerConfig                  Recommit=10s
+INFO [11-14|17:35:12.663] ApplyDefaultMinerConfig                  Mev.Enabled=false
+INFO [11-14|17:35:12.663] ApplyDefaultMinerConfig                  Mev.BuilderFeeCeil=0
+INFO [11-14|17:35:12.663] ApplyDefaultMinerConfig                  Mev.GreedyMergeTx=true
+INFO [11-14|17:35:12.663] ApplyDefaultMinerConfig                  Mev.ValidatorCommission=100
+INFO [11-14|17:35:12.663] ApplyDefaultMinerConfig                  Mev.BidSimulationLeftOver=30ms
+INFO [11-14|17:35:12.663] ApplyDefaultMinerConfig                  Mev.NoInterruptLeftOver=235ms
+INFO [11-14|17:35:12.663] ApplyDefaultMinerConfig                  Mev.MaxBidsPerBuilder=2
+INFO [11-14|17:35:12.665] Maximum peer count                       ETH=200 total=200
+INFO [11-14|17:35:12.667] Smartcard socket not found, disabling    err="stat /run/pcscd/pcscd.comm: no such file or directory"

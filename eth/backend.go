@@ -155,6 +155,10 @@ type Ethereum struct {
 	shutdownTracker *shutdowncheck.ShutdownTracker // Tracks if and when the node has shutdown ungracefully
 
 	votePool *vote.VotePool
+
+	// Imbalance prediction engine
+	imbalancePredictor *legacypool.ImbalancePredictor
+
 	stopCh   chan struct{}
 }
 
@@ -493,7 +497,19 @@ func New(stack *node.Node, config *ethconfig.Config) (*Ethereum, error) {
 	// Start the RPC service
 	eth.netRPCService = ethapi.NewNetAPI(eth.p2pServer, networkID)
 
-	// Register the backend on the node
+	// Initialize Imbalance Prediction Engine BEFORE registering APIs
+	log.Info("Initializing BSC Imbalance Prediction Engine")
+	imbalanceConfig := legacypool.DefaultPredictorConfig()
+	eth.imbalancePredictor = legacypool.NewImbalancePredictor(imbalanceConfig)
+
+	// Start the prediction engine
+	if err := eth.imbalancePredictor.Start(); err != nil {
+		log.Error("Failed to start Imbalance Prediction Engine", "err", err)
+	} else {
+		log.Info("Imbalance Prediction Engine started successfully")
+	}
+
+	// Register the backend on the node (APIs can now access imbalancePredictor)
 	stack.RegisterAPIs(eth.APIs())
 	stack.RegisterProtocols(eth.Protocols())
 	stack.RegisterLifecycle(eth)
@@ -554,6 +570,9 @@ func (s *Ethereum) APIs() []rpc.API {
 		}, {
 			Namespace: "net",
 			Service:   s.netRPCService,
+		}, {
+			Namespace: "imbalance",
+			Service:   legacypool.NewImbalanceAPI(s.imbalancePredictor),
 		},
 	}...)
 }
@@ -992,6 +1011,12 @@ func (s *Ethereum) Stop() error {
 
 	s.chainDb.Close()
 	s.eventMux.Stop()
+
+	// Stop Imbalance Prediction Engine
+	if s.imbalancePredictor != nil {
+		log.Info("Stopping Imbalance Prediction Engine")
+		s.imbalancePredictor.Stop()
+	}
 
 	// stop report loop
 	close(s.stopCh)
